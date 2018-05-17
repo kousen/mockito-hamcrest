@@ -12,7 +12,7 @@ public class StringTests {
     public void equality() {
         String s1 = "abcd";
         String s2 = "abcd";
-        String s3 = "a bc d";
+        String s3 = "a bc   d";
 
         assertThat(s1, is(s2));
         assertThat(s1, is(not(s3)));
@@ -33,6 +33,11 @@ public class StringTests {
 
         assertThat(s, startsWith("this"));
         assertThat(s, endsWith("ing"));
+
+        String blank = "    ";
+        assertThat(blank, containsString("  "));
+        assertThat(blank, equalToIgnoringWhiteSpace("         "));
+        assertThat(blank, equalToIgnoringWhiteSpace("  "));
     }
 
     @Test

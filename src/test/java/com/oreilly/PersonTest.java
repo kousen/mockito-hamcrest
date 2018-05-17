@@ -31,6 +31,16 @@ public class PersonTest {
     }
 
     @Test
+    public void checkSameInstance() {
+        Person hopper = person;
+        assertThat(hopper, sameInstance(person));
+
+        Person copy = new Person("Grace", "Hopper",
+                                 LocalDate.of(1906, Month.DECEMBER, 9));
+        assertThat(copy, not(sameInstance(person)));
+    }
+
+    @Test
     public void checkToString() {
         assertThat(person,
                    hasToString("Person{first='Grace', last='Hopper', dob=1906-12-09}"));
@@ -48,7 +58,7 @@ public class PersonTest {
 
     @Test
     public void properties() {
-        assertThat(person, hasProperty("first"));
+        assertThat("Person must have a first name", person, hasProperty("first"));
         assertThat(person, hasProperty("last"));
         assertThat(person, hasProperty("dob"));
 
