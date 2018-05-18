@@ -10,7 +10,7 @@ public class PersonService {
         this.repository = repository;
     }
 
-    public List<String> getNames() {
+    public List<String> getLastNames() {
         return repository.findAll().stream()
                 .map(Person::getLast)
                 .collect(Collectors.toList());
