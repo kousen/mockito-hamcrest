@@ -12,7 +12,7 @@ public class NumberCollectionTest {
 
     @Test
     public void getTotal() {
-        List mockList = mock(List.class);
+        List<Integer> mockList = mock(List.class);
         when(mockList.size()).thenReturn(3);
         when(mockList.get(0)).thenReturn(1);
         when(mockList.get(1)).thenReturn(2);

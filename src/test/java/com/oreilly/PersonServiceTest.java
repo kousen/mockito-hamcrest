@@ -6,8 +6,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.Assert.*;
-
 public class PersonServiceTest {
 
     @Mock
@@ -17,7 +15,7 @@ public class PersonServiceTest {
     private PersonService service;
 
     @Before
-    private void init() {
+    public void init() {
         MockitoAnnotations.initMocks(this);
     }
 

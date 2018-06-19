@@ -13,7 +13,7 @@ public class MockListTests {
 
     @Test
     public void basicListMock() {
-        List mockedList = mock(List.class);
+        List<String> mockedList = mock(List.class);
 
         mockedList.add("one");
         mockedList.clear();
