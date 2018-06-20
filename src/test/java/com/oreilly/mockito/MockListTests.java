@@ -1,6 +1,8 @@
 package com.oreilly.mockito;
 
+import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.ArgumentMatcher;
 import org.mockito.InOrder;
 
 import java.util.LinkedList;
@@ -27,7 +29,7 @@ public class MockListTests {
     @Test(expected = RuntimeException.class)
     public void stubbedList() {
         //You can mock concrete classes, not just interfaces
-        LinkedList mockedList = mock(LinkedList.class);
+        LinkedList<String> mockedList = mock(LinkedList.class);
 
         //stubbing
         when(mockedList.get(0)).thenReturn("first");
@@ -46,6 +48,38 @@ public class MockListTests {
         //If your code cares what get(0) returns, then something else breaks (often even before verify() gets executed).
         //If your code doesn't care what get(0) returns, then it should not be stubbed. Not convinced? See here.
         verify(mockedList).get(0);
+    }
+
+    @Test
+    public void chainedMethodCalls() {
+        List<String> mockedList = mock(List.class);
+
+        when(mockedList.size())
+                .thenReturn(0)
+                .thenReturn(1)
+                .thenReturn(2);
+
+        System.out.println(mockedList.size());
+        System.out.println(mockedList.size());
+        System.out.println(mockedList.size());
+        System.out.println(mockedList.size());
+
+        verify(mockedList, times(4)).size();
+    }
+
+    @Test
+    public void chainedMethodCallsAsArguments() {
+        List<String> mockedList = mock(List.class);
+
+        when(mockedList.size())
+                .thenReturn(0, 1, 2);
+
+        System.out.println(mockedList.size());
+        System.out.println(mockedList.size());
+        System.out.println(mockedList.size());
+        System.out.println(mockedList.size());
+
+        verify(mockedList, times(4)).size();
     }
 
     @Test
@@ -68,6 +102,23 @@ public class MockListTests {
 
         //argument matchers can also be written as Java 8 Lambdas
         verify(mockedList).add(argThat(someString -> someString.length() > 5));
+    }
+
+    @Test
+    public void argMatcher() {
+        List<String> mockedList = mock(List.class);
+
+        when(mockedList.add(anyString())).thenReturn(true);
+
+        mockedList.add("abcdef");
+
+        // Use anonymous inner class that could be replaced with lambda
+        verify(mockedList).add(argThat(new ArgumentMatcher<String>() {
+            @Override
+            public boolean matches(String argument) {
+                return argument.length() > 5;
+            }
+        }));
     }
 
     @Test
@@ -99,6 +150,8 @@ public class MockListTests {
         verify(mockedList, atLeastOnce()).add("three times");
         verify(mockedList, atLeast(2)).add("three times");
         verify(mockedList, atMost(5)).add("three times");
+
+        verify(mockedList, atLeast(6)).add(anyString());
     }
 
     @Test
@@ -133,5 +186,22 @@ public class MockListTests {
         inOrder.verify(secondMock).add("was called second");
 
         // Oh, and A + B can be mixed together at will
+    }
+
+    @Test @Ignore
+    public void outOfBoundsException() {
+        String[] strings = mock(String[].class);
+
+        when(strings[3]).thenThrow(new ArrayIndexOutOfBoundsException());
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void exceptionHandling() {
+        List<String> mockedList = mock(List.class);
+        doThrow(new RuntimeException()).when(mockedList).clear();
+        // when(mockedList.clear()).thenThrow(new RuntimeException())
+
+        //following throws RuntimeException:
+        mockedList.clear();
     }
 }
