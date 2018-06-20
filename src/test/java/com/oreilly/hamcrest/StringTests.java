@@ -2,6 +2,7 @@ package com.oreilly.hamcrest;
 
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -28,7 +29,7 @@ public class StringTests {
         assertThat(s, containsString("this"));
 
         String[] split = s.split(" ");
-        Stream.of(split)
+        Arrays.stream(split)
               .forEach(word -> assertThat(s, containsString(word)));
 
         assertThat(s, startsWith("this"));
@@ -38,6 +39,10 @@ public class StringTests {
         assertThat(blank, containsString("  "));
         assertThat(blank, equalToIgnoringWhiteSpace("         "));
         assertThat(blank, equalToIgnoringWhiteSpace("  "));
+
+        // From the JavaDocs on equalToIgnoringWhiteSpace
+        assertThat("   my\tfoo  bar ", equalToIgnoringWhiteSpace(" my  foo bar"));
+        assertThat("   my\tfoo  bar ", equalToIgnoringWhiteSpace("my foo bar"));
     }
 
     @Test
@@ -45,7 +50,6 @@ public class StringTests {
         String s = "";
         assertThat(s, isEmptyString());
 
-        s = null;
-        assertThat(s, isEmptyOrNullString());
+        assertThat(null, isEmptyOrNullString());
     }
 }

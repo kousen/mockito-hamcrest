@@ -39,12 +39,18 @@ public class PersonTest {
         Person copy = new Person("Grace", "Hopper",
                                  LocalDate.of(1906, Month.DECEMBER, 9));
         assertThat(copy, not(sameInstance(person)));
+        assertThat(copy, is(equalTo(person)));
     }
 
     @Test
     public void checkToString() {
         assertThat(person,
                    hasToString("Person{first='Grace', last='Hopper', dob=1906-12-09}"));
+    }
+
+    @Test
+    public void nonNullRandomNumbers() {
+        assertThat(Math.random(), is(notNullValue(Double.class)));
     }
 
     @Test
@@ -55,6 +61,8 @@ public class PersonTest {
         assertThat(p.getLast(), notNullValue(String.class));
         Era era = p.getDob().getEra();
         assertThat(era, hasToString("BCE"));
+
+        assertThat(LocalDate.now().getEra(), hasToString("CE"));
     }
 
     @Test
@@ -72,5 +80,18 @@ public class PersonTest {
                                   LocalDate.of(1906, Month.DECEMBER, 9));
 
         assertThat(person, samePropertyValuesAs(hopper));
+    }
+
+    @Test
+    public void equalButNotSameProperties() {
+        Person hopper = new Person(1, "Grace", "Hopper",
+                                   LocalDate.of(1906, Month.DECEMBER, 9));
+        assertThat(person, not(samePropertyValuesAs(hopper)));
+        assertThat(person, is(equalTo(hopper)));
+    }
+
+    @Test
+    public void hasDependentProperty() {
+        assertThat(person, hasProperty("name"));
     }
 }

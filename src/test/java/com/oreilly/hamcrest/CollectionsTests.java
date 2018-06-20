@@ -21,6 +21,8 @@ public class CollectionsTests {
     public void checkOrder() {
         assertThat(strings, contains("this", "is", "a",
                                      "list", "of", "strings"));
+        assertThat(strings, not(contains("of", "is", "list",
+                                     "a", "this", "strings")));
     }
 
     @Test
