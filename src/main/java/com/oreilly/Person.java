@@ -3,7 +3,7 @@ package com.oreilly;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Person {
+public class Person implements Comparable<Person> {
     private Integer id;
     private String first;
     private String last;
@@ -20,6 +20,11 @@ public class Person {
         this.first = first;
         this.last = last;
         this.dob = dob;
+    }
+
+    @Override
+    public int compareTo(Person person) {
+        return last.compareTo(person.last);
     }
 
     public Integer getId() {

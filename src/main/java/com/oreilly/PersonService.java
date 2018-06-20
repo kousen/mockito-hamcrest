@@ -1,5 +1,6 @@
 package com.oreilly;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,12 @@ public class PersonService {
                 .max().orElse(0);
     }
 
-    public void savePerson(Person person) {
-        repository.save(person);
+    public void savePeople(Person... person) {
+        Arrays.stream(person)
+              .forEach(repository::save);
+    }
+
+    public long getTotalPeople() {
+        return repository.count();
     }
 }

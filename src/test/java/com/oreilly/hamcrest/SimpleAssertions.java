@@ -1,9 +1,12 @@
-package com.oreilly;
+package com.oreilly.hamcrest;
 
+import com.oreilly.Person;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.Month;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -17,9 +20,28 @@ public class SimpleAssertions {
 
     @Test
     public void anyOf_allOf() {
+        // evaluates both, because first is false
         assertThat("string", anyOf(is("str"), containsString("str")));
 
+        // only evaluates first, because it is true (short circuits)
+        assertThat("string", anyOf(containsString("str"), is("str")));
+
         assertThat(12, allOf(is(6 * 2), lessThan(20)));
+    }
+
+    @Test
+    public void orderingOnComparable() {
+        assertThat("abc", is(lessThan("def")));
+
+        LocalDate now = LocalDate.now();
+        LocalDate then = now.plusDays(2);
+        assertThat(now, is(lessThan(then)));
+
+        Person hopper = new Person(1, "Grace", "Hopper",
+                                   LocalDate.of(1906, Month.DECEMBER, 9));
+        Person lovelace = new Person(2, "Ada", "Lovelace",
+                                LocalDate.of(1815, Month.DECEMBER, 10));
+        assertThat(lovelace, is(greaterThan(hopper)));
     }
 
     @Test

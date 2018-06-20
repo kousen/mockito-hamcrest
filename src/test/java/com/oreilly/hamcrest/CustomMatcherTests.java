@@ -1,8 +1,8 @@
-package com.oreilly;
+package com.oreilly.hamcrest;
 
 import org.junit.Test;
 
-import static com.oreilly.IsNotNumber.notANumber;
+import static com.oreilly.hamcrest.IsNotNumber.notANumber;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 

@@ -1,5 +1,6 @@
-package com.oreilly;
+package com.oreilly.mockito;
 
+import com.oreilly.NumberCollection;
 import org.junit.Test;
 
 import java.util.List;

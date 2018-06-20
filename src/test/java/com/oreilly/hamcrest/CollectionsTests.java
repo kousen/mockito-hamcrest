@@ -1,4 +1,4 @@
-package com.oreilly;
+package com.oreilly.hamcrest;
 
 import org.junit.Test;
 

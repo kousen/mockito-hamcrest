@@ -1,5 +1,6 @@
-package com.oreilly;
+package com.oreilly.mockito;
 
+import com.oreilly.NumberCollection;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
