@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.mockito.ArgumentMatcher;
 import org.mockito.InOrder;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -110,7 +111,18 @@ public class MockListTests {
 
         when(mockedList.add(anyString())).thenReturn(true);
 
-        mockedList.add("abcdef");
+        assertTrue(mockedList.add("abcdef"));
+    }
+
+    @Test
+    public void argThatDemo() {
+        List<String> mockedList = mock(List.class);
+
+        when(mockedList.add(argThat(s -> s.length() > 5)))
+                .thenReturn(true);
+
+        mockedList.add("123456");
+        mockedList.add("1234");
 
         // Use anonymous inner class that could be replaced with lambda
         verify(mockedList).add(argThat(new ArgumentMatcher<String>() {
@@ -119,6 +131,7 @@ public class MockListTests {
                 return argument.length() > 5;
             }
         }));
+
     }
 
     @Test
@@ -188,7 +201,8 @@ public class MockListTests {
         // Oh, and A + B can be mixed together at will
     }
 
-    @Test @Ignore
+    @Test
+    @Ignore
     public void outOfBoundsException() {
         String[] strings = mock(String[].class);
 
