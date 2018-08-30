@@ -51,6 +51,7 @@ public class PersonTest {
     @Test
     public void nonNullRandomNumbers() {
         assertThat(Math.random(), is(notNullValue(Double.class)));
+        assertThat(Math.random(), closeTo(0.5, 0.5));
     }
 
     @Test
@@ -61,7 +62,6 @@ public class PersonTest {
         assertThat(p.getLast(), notNullValue(String.class));
         Era era = p.getDob().getEra();
         assertThat(era, hasToString("BCE"));
-
         assertThat(LocalDate.now().getEra(), hasToString("CE"));
     }
 
@@ -72,6 +72,7 @@ public class PersonTest {
         assertThat(person, hasProperty("dob"));
 
         assertThat(person, hasProperty("last", equalTo("Hopper")));
+        assertThat(person, hasProperty("name")); // supplied by getName() method (see below too)
     }
 
     @Test
@@ -79,6 +80,7 @@ public class PersonTest {
         Person hopper = new Person("Grace", "Hopper",
                                   LocalDate.of(1906, Month.DECEMBER, 9));
 
+        // useful if Person did NOT have an equals method override
         assertThat(person, samePropertyValuesAs(hopper));
     }
 
@@ -87,7 +89,7 @@ public class PersonTest {
         Person hopper = new Person(1, "Grace", "Hopper",
                                    LocalDate.of(1906, Month.DECEMBER, 9));
         assertThat(person, not(samePropertyValuesAs(hopper)));
-        assertThat(person, is(equalTo(hopper)));
+        assertThat(person, is(equalTo(hopper))); // works because equals(person) doesn't check ids
     }
 
     @Test
