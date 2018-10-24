@@ -7,9 +7,11 @@ import org.mockito.InOrder;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.IntStream;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+import static org.hamcrest.Matchers.*;
 
 public class ListTests {
 
@@ -58,11 +60,13 @@ public class ListTests {
                 .thenReturn(1)
                 .thenReturn(2);
 
-        System.out.println(mockedList.size());
-        System.out.println(mockedList.size());
-        System.out.println(mockedList.size());
-        System.out.println(mockedList.size());
+        // tests that the mock is "stubbed" properly
+        assertThat(0, is(mockedList.size()));
+        assertThat(1, is(mockedList.size()));
+        assertThat(2, is(mockedList.size()));
+        assertThat(2, is(mockedList.size()));
 
+        // tests the protocol, i.e. size method is called the expected number of times
         verify(mockedList, times(4)).size();
     }
 
@@ -73,10 +77,10 @@ public class ListTests {
         when(mockedList.size())
                 .thenReturn(0, 1, 2);
 
-        System.out.println(mockedList.size());
-        System.out.println(mockedList.size());
-        System.out.println(mockedList.size());
-        System.out.println(mockedList.size());
+        assertThat(0, is(mockedList.size()));
+        assertThat(1, is(mockedList.size()));
+        assertThat(2, is(mockedList.size()));
+        assertThat(2, is(mockedList.size()));
 
         verify(mockedList, times(4)).size();
     }
@@ -92,14 +96,24 @@ public class ListTests {
         // when(mockedList.contains(argThat(isValid()))).thenReturn("element");
 
         //following prints "element"
-        System.out.println(mockedList.get(999));
+        assertThat("element", is(mockedList.get(999)));
+        IntStream.rangeClosed(1, 1000)
+                 .forEach(x -> assertThat("element", is(mockedList.get(x))));
 
         //you can also verify using an argument matcher
-        verify(mockedList).get(anyInt());
+        verify(mockedList, times(1001)).get(anyInt());
 
         mockedList.add("abcdef");
 
-        //argument matchers can also be written as Java 8 Lambdas
+        // custom argument matcher as anonymous inner class
+        verify(mockedList).add(argThat(new ArgumentMatcher<String>() {
+            @Override
+            public boolean matches(String someString) {
+                return someString.length() > 5;
+            }
+        }));
+
+        // custom argument matcher implemented as lambda expression
         verify(mockedList).add(argThat(someString -> someString.length() > 5));
     }
 
@@ -119,8 +133,8 @@ public class ListTests {
         when(mockedList.add(argThat(s -> s.length() > 5)))
                 .thenReturn(true);
 
-        mockedList.add("123456");
-        mockedList.add("1234");
+        assertTrue(mockedList.add("123456"));
+        assertFalse(mockedList.add("1234"));
 
         // Use anonymous inner class that could be replaced with lambda
         verify(mockedList).add(argThat(new ArgumentMatcher<String>() {
@@ -177,7 +191,7 @@ public class ListTests {
         //create an inOrder verifier for a single mock
         InOrder inOrder = inOrder(singleMock);
 
-        //following will make sure that add is first called with "was added first, then with "was added second"
+        //following will make sure that add is first called with "was added first", then with "was added second"
         inOrder.verify(singleMock).add("was added first");
         inOrder.verify(singleMock).add("was added second");
 
