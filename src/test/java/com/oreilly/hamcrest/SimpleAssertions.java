@@ -1,7 +1,6 @@
 package com.oreilly.hamcrest;
 
 import com.oreilly.Person;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -42,7 +41,7 @@ public class SimpleAssertions {
         Person hopper = new Person(1, "Grace", "Hopper",
                                    LocalDate.of(1906, Month.DECEMBER, 9));
         Person lovelace = new Person(2, "Ada", "Lovelace",
-                                LocalDate.of(1815, Month.DECEMBER, 10));
+                                     LocalDate.of(1815, Month.DECEMBER, 10));
         assertThat(lovelace, is(greaterThan(hopper)));
     }
 
@@ -60,9 +59,9 @@ public class SimpleAssertions {
     @Test
     public void checkSameInstance() {
         Person hopper1 = new Person(1, "Grace", "Hopper",
-                                   LocalDate.of(1906, Month.DECEMBER, 9));
+                                    LocalDate.of(1906, Month.DECEMBER, 9));
         Person hopper2 = new Person(1, "Grace", "Hopper",
-                                   LocalDate.of(1906, Month.DECEMBER, 9));
+                                    LocalDate.of(1906, Month.DECEMBER, 9));
 
         Person hopper3 = hopper1;
 
@@ -78,7 +77,7 @@ public class SimpleAssertions {
         assertThat(hopper, nullValue(Person.class));
 
         hopper = new Person(1, "Grace", "Hopper",
-                                   LocalDate.of(1906, Month.DECEMBER, 9));
+                            LocalDate.of(1906, Month.DECEMBER, 9));
         assertThat(hopper, notNullValue());
         assertThat(hopper, notNullValue(Person.class));
     }

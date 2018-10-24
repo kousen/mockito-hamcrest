@@ -78,7 +78,7 @@ public class PersonTest {
     @Test
     public void sameProperties() {
         Person hopper = new Person("Grace", "Hopper",
-                                  LocalDate.of(1906, Month.DECEMBER, 9));
+                                   LocalDate.of(1906, Month.DECEMBER, 9));
 
         // useful if Person did NOT have an equals method override
         assertThat(person, samePropertyValuesAs(hopper));

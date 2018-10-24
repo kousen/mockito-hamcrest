@@ -22,7 +22,7 @@ public class CollectionsTests {
         assertThat(strings, contains("this", "is", "a",
                                      "list", "of", "strings"));
         assertThat(strings, not(contains("of", "is", "list",
-                                     "a", "this", "strings")));
+                                         "a", "this", "strings")));
     }
 
     @Test
@@ -48,7 +48,7 @@ public class CollectionsTests {
         String[] stringArray = "this is an array of strings".split(" ");
         assertThat(stringArray, hasItemInArray("array"));
         assertThat(stringArray, arrayContainingInAnyOrder("an", "is", "array",
-                                                "of", "this", "strings"));
+                                                          "of", "this", "strings"));
     }
 
     @Test
