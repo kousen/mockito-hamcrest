@@ -36,6 +36,8 @@ public class CollectionsTests {
         assertThat(strings, everyItem(anyOf(containsString("a"),
                                             containsString("i"),
                                             containsString("o"))));
+        // From the JavaDocs on everyItem
+        assertThat(Arrays.asList("bar", "baz"), everyItem(startsWith("ba")));
     }
 
     @Test
