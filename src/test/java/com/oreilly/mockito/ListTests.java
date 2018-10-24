@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 import static org.mockito.Mockito.*;
 
-public class MockListTests {
+public class ListTests {
 
     @Test
     public void basicListMock() {
