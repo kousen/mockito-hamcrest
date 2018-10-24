@@ -201,6 +201,9 @@ public class ListTests {
 
     @Test
     @Ignore
+    // Cannot mock/spy final class
+    // Even if final mocking enabled, you get:
+    //   VM does not not support modification of given type
     public void outOfBoundsException() {
         String[] strings = mock(String[].class);
 
