@@ -22,5 +22,6 @@ public class NumberCollectionTest {
         NumberCollection nc = new NumberCollection(mockList);
 
         assertEquals(6, nc.getTotal());
+        System.out.println(mockList.getClass().getName());
     }
 }
