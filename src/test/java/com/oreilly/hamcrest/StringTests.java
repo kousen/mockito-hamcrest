@@ -3,10 +3,10 @@ package com.oreilly.hamcrest;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertEquals;
 
 public class StringTests {
     @Test
@@ -20,6 +20,12 @@ public class StringTests {
         assertThat(s1, equalToIgnoringCase("ABcd"));
         assertThat(s1, equalToIgnoringWhiteSpace("  abcd  "));
         assertThat(s3, equalToIgnoringWhiteSpace("  a  bc\t d  "));
+
+        // JUnit approach
+        assertEquals(s2, s1);
+
+        // Hamcrest approach
+        assertThat(s1, is(equalTo(s2)));
     }
 
     @Test
@@ -49,7 +55,7 @@ public class StringTests {
     public void emptyOrNulls() {
         String s = "";
         assertThat(s, isEmptyString());
-
+        assertThat(s, isEmptyOrNullString());
         assertThat(null, isEmptyOrNullString());
     }
 }

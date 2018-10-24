@@ -15,6 +15,7 @@ public class SimpleAssertions {
     @Test
     public void instances() {
         assertThat(1, instanceOf(Integer.class));
+        assertThat(1, is(instanceOf(Integer.class)));
         assertThat(1L, isA(Long.class));  // shorthand for instanceOf
     }
 
@@ -36,6 +37,7 @@ public class SimpleAssertions {
         LocalDate now = LocalDate.now();
         LocalDate then = now.plusDays(2);
         assertThat(now, is(lessThan(then)));
+        assertThat(then, is(greaterThanOrEqualTo(now)));
 
         Person hopper = new Person(1, "Grace", "Hopper",
                                    LocalDate.of(1906, Month.DECEMBER, 9));
@@ -53,5 +55,31 @@ public class SimpleAssertions {
         BigDecimal a = new BigDecimal("1.2345");
         BigDecimal b = new BigDecimal("1.234");
         assertThat(a, closeTo(b, new BigDecimal("0.001")));
+    }
+
+    @Test
+    public void checkSameInstance() {
+        Person hopper1 = new Person(1, "Grace", "Hopper",
+                                   LocalDate.of(1906, Month.DECEMBER, 9));
+        Person hopper2 = new Person(1, "Grace", "Hopper",
+                                   LocalDate.of(1906, Month.DECEMBER, 9));
+
+        Person hopper3 = hopper1;
+
+        assertThat(hopper2, is(hopper1));
+        assertThat(hopper2, is(not(sameInstance(hopper3))));
+        assertThat(hopper1, sameInstance(hopper3));
+    }
+
+    @Test
+    public void nullability() {
+        Person hopper = null;
+        assertThat(hopper, nullValue());
+        assertThat(hopper, nullValue(Person.class));
+
+        hopper = new Person(1, "Grace", "Hopper",
+                                   LocalDate.of(1906, Month.DECEMBER, 9));
+        assertThat(hopper, notNullValue());
+        assertThat(hopper, notNullValue(Person.class));
     }
 }

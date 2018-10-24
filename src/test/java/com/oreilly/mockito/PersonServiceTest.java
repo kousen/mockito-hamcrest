@@ -6,6 +6,7 @@ import com.oreilly.PersonService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import java.time.LocalDate;
@@ -35,7 +36,7 @@ public class PersonServiceTest {
             new Person(1, "Grace", "Hopper", LocalDate.of(1906, Month.DECEMBER, 9)),
             new Person(2, "Ada", "Lovelace", LocalDate.of(1815, Month.DECEMBER, 10)),
             new Person(3, "Adele", "Goldberg", LocalDate.of(1945, Month.JULY, 7)),
-            new Person(4, "Anita", "Borg", LocalDate.of(1949, Month.JANUARY, 17)),
+            new Person(14, "Anita", "Borg", LocalDate.of(1949, Month.JANUARY, 17)),
             new Person(5, "Barbara", "Liskov", LocalDate.of(1939, Month.NOVEMBER, 7)));
 
     @Before
@@ -44,24 +45,25 @@ public class PersonServiceTest {
 
         when(repository.findAll())
                 .thenReturn(people);
-        when(repository.count())
-                .thenReturn((long) people.size());
     }
 
     @Test
     public void findMaxId() {
-        assertThat(service.getHighestId(), is(5));
+        assertThat(service.getHighestId(), is(14));
     }
 
     @Test
     public void getLastNames() {
         assertThat(service.getLastNames(),
-                   containsInAnyOrder("Hopper", "Lovelace", "Goldberg",
-                                      "Borg", "Liskov"));
+                   containsInAnyOrder("Borg", "Hopper", "Goldberg",
+                                      "Lovelace", "Liskov"));
     }
 
     @Test
     public void getTotalPeople() {
+        when(repository.count())
+                .thenReturn((long) people.size());
+
         assertThat(service.getTotalPeople(), is(equalTo((long) people.size())));
     }
 
@@ -74,8 +76,11 @@ public class PersonServiceTest {
                             people.get(3),
                             people.get(4));
 
+        // test the service (which uses the mock)
         assertThat(service.savePeople(people.toArray(new Person[0])),
-                   containsInAnyOrder(1, 2, 3, 4, 5));
+                   containsInAnyOrder(1, 2, 3, 14, 5));
+
+        // verify the interaction between the service and the mock
         verify(repository, times(5)).save(any(Person.class));
         verify(repository, never()).delete(any(Person.class));
     }
@@ -93,7 +98,7 @@ public class PersonServiceTest {
 
         // Lambda expression implementation of Answer<Person>
         when(repository.save(any(Person.class)))
-                .thenAnswer((Answer<Person>) invocation -> invocation.getArgument(0));
+                .thenAnswer(invocation -> invocation.getArgument(0));
 
         List<Integer> ids = service.savePeople(people.toArray(new Person[0]));
 
@@ -139,7 +144,7 @@ public class PersonServiceTest {
         // when(repository.findById(anyInt())).thenReturn(Optional.empty());
 
         // More specific, custom matcher
-        when(repository.findById(argThat(id -> id > 5))).thenReturn(Optional.empty());
+        when(repository.findById(argThat(id -> id > 14))).thenReturn(Optional.empty());
 
         List<Person> personList = service.findByIds(999);
         assertThat(personList, is(emptyCollectionOf(Person.class)));
@@ -153,8 +158,8 @@ public class PersonServiceTest {
                                                 .findFirst());
 
         List<Person> personList = service.findByIds(1, 3, 5);
-        assertThat(personList, containsInAnyOrder(people.get(0),
-                                                  people.get(2),
-                                                  people.get(4)));
+        assertThat(personList, contains(people.get(0),
+                                        people.get(2),
+                                        people.get(4)));
     }
 }

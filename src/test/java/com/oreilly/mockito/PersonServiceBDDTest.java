@@ -45,7 +45,6 @@ public class PersonServiceBDDTest {
 
     @Test
     public void findMaxId() {
-
         assertThat(service.getHighestId(), is(5));
     }
 
