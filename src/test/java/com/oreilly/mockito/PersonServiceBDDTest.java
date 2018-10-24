@@ -76,6 +76,7 @@ public class PersonServiceBDDTest {
         List<Integer> ids = service.savePeople(people.toArray(new Person[0]));
 
         assertThat(ids, containsInAnyOrder(1, 2, 3, 4, 5));
+
         then(repository)
                 .should(times(5))
                 .save(any(Person.class));
