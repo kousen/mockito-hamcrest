@@ -1,7 +1,6 @@
 package com.oreilly.hamcrest;
 
 import org.hamcrest.Description;
-import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
@@ -16,7 +15,6 @@ public class IsNotNumber extends TypeSafeMatcher<Double> {
         description.appendText("not a number");
     }
 
-    @Factory
     public static Matcher<Double> notANumber() {
         return new IsNotNumber();
     }

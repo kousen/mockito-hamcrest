@@ -18,8 +18,8 @@ public class StringTests {
         assertThat(s1, is(s2));
         assertThat(s1, is(not(s3)));
         assertThat(s1, equalToIgnoringCase("ABcd"));
-        assertThat(s1, equalToIgnoringWhiteSpace("  abcd  "));
-        assertThat(s3, equalToIgnoringWhiteSpace("  a  bc\t d  "));
+        assertThat(s1, equalToCompressingWhiteSpace("  abcd  "));
+        assertThat(s3, equalToCompressingWhiteSpace("  a  bc\t d  "));
 
         // JUnit approach
         assertEquals(s2, s1);
@@ -43,19 +43,19 @@ public class StringTests {
 
         String blank = "    ";
         assertThat(blank, containsString("  "));
-        assertThat(blank, equalToIgnoringWhiteSpace("         "));
-        assertThat(blank, equalToIgnoringWhiteSpace("  "));
+        assertThat(blank, equalToCompressingWhiteSpace("         "));
+        assertThat(blank, equalToCompressingWhiteSpace("  "));
 
         // From the JavaDocs on equalToIgnoringWhiteSpace
-        assertThat("   my\tfoo  bar ", equalToIgnoringWhiteSpace(" my  foo bar"));
-        assertThat("   my\tfoo  bar ", equalToIgnoringWhiteSpace("my foo bar"));
+        assertThat("   my\tfoo  bar ", equalToCompressingWhiteSpace(" my  foo bar"));
+        assertThat("   my\tfoo  bar ", equalToCompressingWhiteSpace("my foo bar"));
     }
 
     @Test
     public void emptyOrNulls() {
         String s = "";
-        assertThat(s, isEmptyString());
-        assertThat(s, isEmptyOrNullString());
-        assertThat(null, isEmptyOrNullString());
+        assertThat(s, is(emptyString()));
+        assertThat(s, is(emptyOrNullString()));
+        assertThat(null, is(emptyOrNullString()));
     }
 }
