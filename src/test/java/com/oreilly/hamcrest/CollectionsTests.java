@@ -1,7 +1,10 @@
 package com.oreilly.hamcrest;
 
+import com.oreilly.Person;
 import org.junit.Test;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,6 +60,21 @@ public class CollectionsTests {
     public void itemsGreaterThan() {
         List<Integer> nums = Arrays.asList(3, 1, 4, 1, 5, 9);
         assertThat(nums, everyItem(greaterThanOrEqualTo(1)));
+    }
+
+    @Test
+    public void hasPersonInArray() {
+        Person[] people = new Person[3];
+        Person hopper = new Person("Grace", "Hopper", LocalDate.of(1906, Month.DECEMBER, 9));
+        Person lovelace = new Person("Ada", "Lovelace", LocalDate.of(1815, Month.DECEMBER, 10));
+        Person vonNeuman = new Person("John", "von Neuman", LocalDate.of(1903, Month.DECEMBER, 28));
+        people[0] = hopper;
+        people[1] = new Person("Ada", "Lovelace", LocalDate.of(1815, Month.DECEMBER, 10));
+        people[2] = lovelace;
+
+        assertThat(people, hasItemInArray(new Person("Grace", "Hopper", LocalDate.of(1906, Month.DECEMBER, 9))));
+        assertThat(people, hasItemInArray(lovelace));
+        assertThat(people, not(hasItemInArray(vonNeuman)));
     }
 }
 

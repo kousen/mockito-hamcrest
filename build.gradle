@@ -6,8 +6,8 @@ plugins {
 group 'com.oreilly'
 version '1.0'
 
-sourceCompatibility = 11
-targetCompatibility = 11
+//sourceCompatibility = 1.8
+//targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     jcenter()
@@ -27,7 +27,7 @@ dependencies {
     // Declare "shim" jar to force upgrade
     testImplementation 'org.hamcrest:hamcrest-library:2.1'
     testImplementation 'org.hamcrest:hamcrest:2.1'
-    testImplementation 'org.mockito:mockito-core:2.25.0'
+    testImplementation 'org.mockito:mockito-core:2.25.1'
     
     // Used to mock final classes and methods:
     testImplementation 'org.mockito:mockito-inline:+'
