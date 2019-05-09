@@ -25,7 +25,7 @@ dependencies {
     testImplementation 'org.hamcrest:hamcrest-library:2.1'
     testImplementation 'org.hamcrest:hamcrest:2.1'
     testImplementation 'org.mockito:mockito-core:2.27.0'
-    
+
     // Used to mock final classes and methods:
     testImplementation 'org.mockito:mockito-inline:+'
 }

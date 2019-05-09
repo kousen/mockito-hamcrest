@@ -10,7 +10,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class NumberCollectionAnnotationTest {
@@ -35,6 +35,13 @@ public class NumberCollectionAnnotationTest {
         when(mockList.get(1)).thenReturn(2);
         when(mockList.get(2)).thenReturn(3);
 
+        // Only requires the stub behavior,
+        //  i.e., that the get(i) methods return the expected values
         assertEquals(6, nc.getTotal());
+
+        // Verify the protocol -- that the mock methods are called
+        //  the right number of times
+        verify(mockList).size();
+        verify(mockList, times(3)).get(anyInt());
     }
 }

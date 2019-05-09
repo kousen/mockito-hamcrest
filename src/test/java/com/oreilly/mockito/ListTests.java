@@ -24,6 +24,7 @@ public class ListTests {
 
         //verification
         verify(mockedList).add("one");
+        // verify(mockedList).add("two"); // fails because diff arg
         verify(mockedList).clear();
     }
 
@@ -144,6 +145,10 @@ public class ListTests {
             }
         }));
 
+        // Java lambda expression implementation of ArgumetMatcher interface
+        verify(mockedList).add(argThat(s -> s.length() > 5));
+        verify(mockedList, times(2)).add(anyString());
+
     }
 
     @Test
@@ -159,6 +164,13 @@ public class ListTests {
         mockedList.add("three times");
         mockedList.add("three times");
         mockedList.add("three times");
+
+
+        // Don't care what order methods were called in
+        mockedList.add("four");
+        mockedList.add("five");
+        verify(mockedList).add("five");
+        verify(mockedList).add("four");
 
         //following two verifications work exactly the same - times(1) is used by default
         verify(mockedList).add("once");
