@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -30,10 +31,12 @@ public class NumberCollectionAnnotationTest {
 
     @Test
     public void getTotal() {
-        when(mockList.size()).thenReturn(3);
-        when(mockList.get(0)).thenReturn(1);
-        when(mockList.get(1)).thenReturn(2);
-        when(mockList.get(2)).thenReturn(3);
+//        when(mockList.size()).thenReturn(3);
+//        when(mockList.get(0)).thenReturn(1);
+//        when(mockList.get(1)).thenReturn(2);
+//        when(mockList.get(2)).thenReturn(3);
+
+        when(mockList.stream()).thenReturn(Stream.of(1, 2, 3));
 
         // Only requires the stub behavior,
         //  i.e., that the get(i) methods return the expected values
@@ -41,7 +44,9 @@ public class NumberCollectionAnnotationTest {
 
         // Verify the protocol -- that the mock methods are called
         //  the right number of times
-        verify(mockList).size();
-        verify(mockList, times(3)).get(anyInt());
+//        verify(mockList).size();
+//        verify(mockList, times(3)).get(anyInt());
+
+        verify(mockList).stream();
     }
 }
