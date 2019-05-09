@@ -30,23 +30,32 @@ public class NumberCollectionAnnotationTest {
 //    }
 
     @Test
-    public void getTotal() {
-//        when(mockList.size()).thenReturn(3);
-//        when(mockList.get(0)).thenReturn(1);
-//        when(mockList.get(1)).thenReturn(2);
-//        when(mockList.get(2)).thenReturn(3);
-
-        when(mockList.stream()).thenReturn(Stream.of(1, 2, 3));
+    public void getTotalUsingLoop() {
+        when(mockList.size()).thenReturn(3);
+        when(mockList.get(0)).thenReturn(1);
+        when(mockList.get(1)).thenReturn(2);
+        when(mockList.get(2)).thenReturn(3);
 
         // Only requires the stub behavior,
         //  i.e., that the get(i) methods return the expected values
-        assertEquals(6, nc.getTotal());
+        assertEquals(6, nc.getTotalUsingLoop());
 
         // Verify the protocol -- that the mock methods are called
         //  the right number of times
-//        verify(mockList).size();
-//        verify(mockList, times(3)).get(anyInt());
+        verify(mockList).size();
+        verify(mockList, times(3)).get(anyInt());
+    }
 
+    @Test
+    public void getTotalUsingStream() {
+        when(mockList.stream()).thenReturn(Stream.of(1, 2, 3));
+
+        // Only requires the stub behavior,
+        assertEquals(6, nc.getTotalUsingStream());
+
+        // Verify the protocol -- that the mock methods are called
+        //  the right number of times
         verify(mockList).stream();
     }
+
 }
