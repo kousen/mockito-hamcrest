@@ -72,7 +72,8 @@ public class CollectionsTests {
         people[1] = new Person("Ada", "Lovelace", LocalDate.of(1815, Month.DECEMBER, 10));
         people[2] = lovelace;
 
-        assertThat(people, hasItemInArray(new Person("Grace", "Hopper", LocalDate.of(1906, Month.DECEMBER, 9))));
+        assertThat(people, hasItemInArray(
+                new Person("Grace", "Hopper", LocalDate.of(1906, Month.DECEMBER, 9))));
         assertThat(people, hasItemInArray(lovelace));
         assertThat(people, not(hasItemInArray(vonNeuman)));
     }

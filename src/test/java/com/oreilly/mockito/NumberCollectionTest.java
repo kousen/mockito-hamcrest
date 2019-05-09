@@ -6,8 +6,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class NumberCollectionTest {
 
@@ -22,6 +21,10 @@ public class NumberCollectionTest {
         NumberCollection nc = new NumberCollection(mockList);
 
         assertEquals(6, nc.getTotal());
-        System.out.println(mockList.getClass().getName());
+
+        // System.out.println(mockList.getClass().getName());
+
+        verify(mockList).size();
+        verify(mockList, times(3)).get(anyInt());
     }
 }

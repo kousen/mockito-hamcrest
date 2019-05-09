@@ -8,6 +8,9 @@ version '1.0'
 
 repositories {
     jcenter()
+    maven {
+        url 'https://dl.bintray.com/mockito/maven/'
+    }
 }
 
 test {
@@ -24,8 +27,9 @@ dependencies {
     // Declare "shim" jar to force upgrade
     testImplementation 'org.hamcrest:hamcrest-library:2.1'
     testImplementation 'org.hamcrest:hamcrest:2.1'
-    testImplementation 'org.mockito:mockito-core:2.27.0'
+    // testImplementation 'org.mockito:mockito-core:2.27.0'
+    testImplementation 'org.mockito:mockito-core:3.0.0-beta.1'
 
     // Used to mock final classes and methods:
-    testImplementation 'org.mockito:mockito-inline:+'
+    // testImplementation 'org.mockito:mockito-inline:+'
 }
