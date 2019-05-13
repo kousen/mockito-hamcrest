@@ -17,6 +17,9 @@ test {
     useJUnitPlatform()
 }
 
+def hamcrestVersion = '2.1'
+def mockitoVersion = '3.0.0-beta.1'
+
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.4.2'
     testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.4.2"
@@ -25,10 +28,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     
     // Declare "shim" jar to force upgrade
-    testImplementation 'org.hamcrest:hamcrest-library:2.1'
-    testImplementation 'org.hamcrest:hamcrest:2.1'
-    // testImplementation 'org.mockito:mockito-core:2.27.0'
-    testImplementation 'org.mockito:mockito-core:3.0.0-beta.1'
+    testImplementation "org.hamcrest:hamcrest-library:$hamcrestVersion"
+    testImplementation "org.hamcrest:hamcrest:$hamcrestVersion"
+    
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito:mockito-junit-jupiter:$mockitoVersion"
 
     // Used to mock final classes and methods:
     // testImplementation 'org.mockito:mockito-inline:+'
