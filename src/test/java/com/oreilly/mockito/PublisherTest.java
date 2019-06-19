@@ -1,5 +1,7 @@
-package com.oreilly;
+package com.oreilly.mockito;
 
+import com.oreilly.Publisher;
+import com.oreilly.Subscriber;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.stubbing.Answer;
