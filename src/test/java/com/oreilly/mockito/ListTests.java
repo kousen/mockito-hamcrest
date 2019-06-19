@@ -5,6 +5,9 @@ import org.junit.Test;
 import org.mockito.ArgumentMatcher;
 import org.mockito.InOrder;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -19,6 +22,7 @@ public class ListTests {
     public void basicListMock() {
         List<String> mockedList = mock(List.class);
 
+        // These would be called inside the class under test (not the mock)
         mockedList.add("one");
         mockedList.clear();
 
@@ -169,6 +173,7 @@ public class ListTests {
         // Don't care what order methods were called in
         mockedList.add("four");
         mockedList.add("five");
+
         verify(mockedList).add("five");
         verify(mockedList).add("four");
 
@@ -225,17 +230,6 @@ public class ListTests {
         // Oh, and A + B can be mixed together at will
     }
 
-    @Test
-    @Ignore
-    // Cannot mock/spy final class
-    // Even if final mocking enabled, you get:
-    //   VM does not not support modification of given type
-    public void outOfBoundsException() {
-        String[] strings = mock(String[].class);
-
-        when(strings[3]).thenThrow(new ArrayIndexOutOfBoundsException());
-    }
-
     @Test(expected = RuntimeException.class)
     public void exceptionHandling() {
         List<String> mockedList = mock(List.class);
@@ -244,5 +238,18 @@ public class ListTests {
 
         //following throws RuntimeException:
         mockedList.clear();
+    }
+
+    @Test
+    public void mockFinalClassLocalDate() {
+        LocalDate mockDate = mock(LocalDate.class);
+
+        when(mockDate.toString()).thenReturn("1969-07-20");
+        when(mockDate.getYear()).thenReturn(1969);
+
+        assertThat(mockDate, hasToString("1969-07-20"));
+        int year = mockDate.getYear();
+
+        verify(mockDate).getYear();
     }
 }

@@ -3,6 +3,7 @@ package com.oreilly.mockito;
 import com.oreilly.NumberCollection;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -21,7 +22,7 @@ public class NumberCollectionTest {
 
         NumberCollection nc = new NumberCollection(mockList);
 
-        assertEquals(6, nc.getTotalUsingLoop());
+        assertEquals(1 + 2 + 3, nc.getTotalUsingLoop());
 
         verify(mockList).size();
         verify(mockList, times(3)).get(anyInt());
@@ -35,9 +36,20 @@ public class NumberCollectionTest {
 
         NumberCollection nc = new NumberCollection(mockList);
 
-        assertEquals(6, nc.getTotalUsingStream());
+        assertEquals(1 + 2 + 3, nc.getTotalUsingStream());
 
         verify(mockList).stream();
     }
 
+    @Test  // Not using Mockito at all
+    public void getTotalWithStubbedList() {
+        List<Integer> stubbedList = Arrays.asList(1, 2, 3);
+
+        NumberCollection nc = new NumberCollection(stubbedList);
+
+        assertEquals(1 + 2 + 3, nc.getTotalUsingLoop());
+        assertEquals(1 + 2 + 3, nc.getTotalUsingStream());
+
+        // No built-in way to verify the method calls on stubbed list
+    }
 }
