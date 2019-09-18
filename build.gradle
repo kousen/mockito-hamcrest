@@ -18,11 +18,11 @@ test {
 }
 
 def hamcrestVersion = '2.1'
-def mockitoVersion = '3.0.0-beta.1'
+def mockitoVersion = '3.0.0'
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.4.2'
-    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.4.2"
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
+    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.5.2"
 
     // JUnit 4.12 includes hamcrest-core 1.3
     testImplementation 'junit:junit:4.12'
