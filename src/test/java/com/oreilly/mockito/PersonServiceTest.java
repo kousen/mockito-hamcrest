@@ -53,8 +53,8 @@ public class PersonServiceTest {
     @Test
     public void getLastNames() {
         assertThat(service.getLastNames(),
-                   containsInAnyOrder("Borg", "Hopper", "Goldberg",
-                                      "Lovelace", "Liskov"));
+                containsInAnyOrder("Borg", "Goldberg", "Hopper",
+                        "Liskov", "Lovelace"));
     }
 
     @Test
@@ -69,14 +69,14 @@ public class PersonServiceTest {
     public void saveAllPeople() {
         when(repository.save(any(Person.class)))
                 .thenReturn(people.get(0),
-                            people.get(1),
-                            people.get(2),
-                            people.get(3),
-                            people.get(4));
+                        people.get(1),
+                        people.get(2),
+                        people.get(3),
+                        people.get(4));
 
         // test the service (which uses the mock)
         assertThat(service.savePeople(people.toArray(new Person[0])),
-                   containsInAnyOrder(1, 2, 3, 14, 5));
+                containsInAnyOrder(1, 2, 3, 14, 5));
 
         // verify the interaction between the service and the mock
         verify(repository, times(5)).save(any(Person.class));
@@ -101,8 +101,8 @@ public class PersonServiceTest {
         List<Integer> ids = service.savePeople(people.toArray(new Person[0]));
 
         Integer[] actuals = people.stream()
-                                  .map(Person::getId)
-                                  .toArray(Integer[]::new);
+                .map(Person::getId)
+                .toArray(Integer[]::new);
         assertThat(ids, contains(actuals));
     }
 
@@ -118,9 +118,9 @@ public class PersonServiceTest {
     public void createPerson() {
         Person hopper = people.get(0);
         Person person = service.createPerson(hopper.getId(),
-                                             hopper.getFirst(),
-                                             hopper.getLast(),
-                                             hopper.getDob());
+                hopper.getFirst(),
+                hopper.getLast(),
+                hopper.getDob());
 
         verify(repository).save(personArg.capture());
         assertThat(personArg.getValue(), is(hopper));
@@ -152,13 +152,13 @@ public class PersonServiceTest {
     public void findByIdsThatDoExist() {
         when(repository.findById(anyInt()))
                 .thenAnswer(invocation -> people.stream()
-                                                .filter(person ->
-                                                        invocation.getArgument(0).equals(person.getId()))
-                                                .findFirst());
+                        .filter(person ->
+                                invocation.getArgument(0).equals(person.getId()))
+                        .findFirst());
 
         List<Person> personList = service.findByIds(1, 3, 5);
         assertThat(personList, contains(people.get(0),
-                                        people.get(2),
-                                        people.get(4)));
+                people.get(2),
+                people.get(4)));
     }
 }

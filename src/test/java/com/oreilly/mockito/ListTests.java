@@ -2,6 +2,7 @@ package com.oreilly.mockito;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatcher;
 import org.mockito.InOrder;
 
@@ -16,6 +17,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.Matchers.*;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class ListTests {
 
     @Test
@@ -153,6 +155,18 @@ public class ListTests {
         verify(mockedList).add(argThat(s -> s.length() > 5));
         verify(mockedList, times(2)).add(anyString());
 
+    }
+
+    @Test
+    public void argCaptor() {
+        List<String> mockedList = mock(List.class);
+        when(mockedList.add(anyString())).thenReturn(true);
+
+        mockedList.add("abc");
+
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        verify(mockedList).add(captor.capture());
+        assertThat("abc", is(equalTo(captor.getValue())));
     }
 
     @Test
