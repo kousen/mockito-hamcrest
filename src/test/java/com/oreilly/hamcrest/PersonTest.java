@@ -90,6 +90,9 @@ public class PersonTest {
                                    LocalDate.of(1906, Month.DECEMBER, 9));
         assertThat(person, not(samePropertyValuesAs(hopper)));
         assertThat(person, is(equalTo(hopper))); // works because equals(person) doesn't check ids
+
+        // Vararg list of string properties to ignore supported
+        assertThat(person, samePropertyValuesAs(hopper, "id"));
     }
 
     @Test

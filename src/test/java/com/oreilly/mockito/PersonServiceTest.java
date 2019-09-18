@@ -152,7 +152,8 @@ public class PersonServiceTest {
     public void findByIdsThatDoExist() {
         when(repository.findById(anyInt()))
                 .thenAnswer(invocation -> people.stream()
-                                                .filter(person -> invocation.getArgument(0).equals(person.getId()))
+                                                .filter(person ->
+                                                        invocation.getArgument(0).equals(person.getId()))
                                                 .findFirst());
 
         List<Person> personList = service.findByIds(1, 3, 5);
