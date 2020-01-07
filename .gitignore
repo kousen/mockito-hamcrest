@@ -4,6 +4,8 @@ bin/
 out/
 !gradle/wrapper/gradle-wrapper.jar
 
+.vscode/
+
 ### STS ###
 .apt_generated
 .classpath
