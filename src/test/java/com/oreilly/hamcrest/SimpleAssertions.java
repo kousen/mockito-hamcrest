@@ -32,6 +32,7 @@ public class SimpleAssertions {
     @Test
     public void orderingOnComparable() {
         assertThat("abc", is(lessThan("def")));
+        assertThat("B", is(lessThan("b")));
 
         LocalDate now = LocalDate.now();
         LocalDate then = now.plusDays(2);
