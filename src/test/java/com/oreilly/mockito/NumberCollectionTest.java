@@ -2,6 +2,7 @@ package com.oreilly.mockito;
 
 import com.oreilly.NumberCollection;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.List;
