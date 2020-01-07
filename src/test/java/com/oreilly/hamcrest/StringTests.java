@@ -4,11 +4,13 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+import static com.oreilly.hamcrest.IsStringReversed.isStringReversed;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
 
 public class StringTests {
+    @SuppressWarnings("GrazieInspection")
     @Test
     public void equality() {
         String s1 = "abcd";
@@ -28,6 +30,7 @@ public class StringTests {
         assertThat(s1, is(equalTo(s2)));
     }
 
+    @SuppressWarnings("GrazieInspection")
     @Test
     public void containing() {
         String s = "this is a string";
@@ -44,7 +47,7 @@ public class StringTests {
         String blank = "    ";
         assertThat(blank, containsString("  "));
         assertThat(blank, equalToCompressingWhiteSpace("         "));
-        assertThat(blank, equalToCompressingWhiteSpace("  "));
+        assertThat(blank, equalToCompressingWhiteSpace(""));
 
         // From the JavaDocs on equalToIgnoringWhiteSpace
         assertThat("   my\tfoo  bar ", equalToCompressingWhiteSpace(" my  foo bar"));
@@ -57,5 +60,11 @@ public class StringTests {
         assertThat(s, is(emptyString()));
         assertThat(s, is(emptyOrNullString()));
         assertThat(null, is(emptyOrNullString()));
+    }
+
+    @Test
+    public void reversed() {
+        assertThat("racecar", isStringReversed());
+        assertThat("not the same", not(isStringReversed()));
     }
 }

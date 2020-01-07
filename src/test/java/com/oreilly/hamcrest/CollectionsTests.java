@@ -10,6 +10,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 public class CollectionsTests {
     private List<String> strings = Arrays.asList("this", "is", "a",
@@ -17,7 +18,11 @@ public class CollectionsTests {
 
     @Test
     public void numberOfElements() {
+        // Hamcrest
         assertThat(strings, hasSize(6));
+
+        // JUnit
+        assertEquals(6, strings.size());
     }
 
     @Test

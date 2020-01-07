@@ -57,6 +57,7 @@ public class SimpleAssertions {
         assertThat(a, closeTo(b, new BigDecimal("0.001")));
     }
 
+    @SuppressWarnings("UnnecessaryLocalVariable")
     @Test
     public void checkSameInstance() {
         Person hopper1 = new Person(1, "Grace", "Hopper",
@@ -67,10 +68,11 @@ public class SimpleAssertions {
         Person hopper3 = hopper1;
 
         assertThat(hopper2, is(hopper1));
-        assertThat(hopper2, is(not(sameInstance(hopper3))));
         assertThat(hopper1, sameInstance(hopper3));
+        assertThat(hopper2, is(not(sameInstance(hopper3))));
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Test
     public void nullability() {
         Person hopper = null;
