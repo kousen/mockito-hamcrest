@@ -1,5 +1,5 @@
 package com.oreilly;
 
 public interface Subscriber {
-    void receive(String message);
+    void onNext(String message);
 }
