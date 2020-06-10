@@ -83,6 +83,7 @@ public class PersonServiceBDDTest {
                 .delete(any(Person.class));
     }
 
+    @Test
     public void useAnswer() {
         given(repository.save(any(Person.class)))
                 .will(invocation -> invocation.getArgument(0));

@@ -2,6 +2,7 @@ package com.oreilly;
 
 import java.time.LocalDate;
 
+@SuppressWarnings("unused")
 public class Project {
     private String name;
     private LocalDate startDate;

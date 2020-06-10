@@ -15,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-@SuppressWarnings("ResultOfMethodCallIgnored")
+@SuppressWarnings({"ResultOfMethodCallIgnored", "unchecked"})
 public class ListTests {
 
     @Test
@@ -90,6 +90,7 @@ public class ListTests {
         verify(mockedList, times(4)).size();
     }
 
+    @SuppressWarnings("Convert2Diamond")
     @Test
     public void argumentMatchers() {
         List<String> mockedList = mock(List.class);
@@ -111,6 +112,7 @@ public class ListTests {
         mockedList.add("abcdef");
 
         // custom argument matcher as anonymous inner class
+        //noinspection Convert2Lambda
         verify(mockedList).add(argThat(new ArgumentMatcher<String>() {
             @Override
             public boolean matches(String someString) {
@@ -131,6 +133,7 @@ public class ListTests {
         assertTrue(mockedList.add("abcdef"));
     }
 
+    @SuppressWarnings({"ConstantConditions", "Convert2Lambda", "Convert2Diamond"})
     @Test
     public void argThatDemo() {
         List<String> mockedList = mock(List.class);
@@ -252,6 +255,7 @@ public class ListTests {
         mockedList.clear();
     }
 
+    @SuppressWarnings("unused")
     @Test
     public void mockFinalClassLocalDate() {
         LocalDate mockDate = mock(LocalDate.class);

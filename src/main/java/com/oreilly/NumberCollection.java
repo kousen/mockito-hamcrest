@@ -3,12 +3,13 @@ package com.oreilly;
 import java.util.List;
 
 public class NumberCollection {
-    private List<Integer> numbers;
+    private final List<Integer> numbers;
 
     public NumberCollection(List<Integer> numbers) {
         this.numbers = numbers;
     }
 
+    @SuppressWarnings("ForLoopReplaceableByForEach")
     public int getTotalUsingLoop() {
         int total = 0;
         int count = numbers.size();

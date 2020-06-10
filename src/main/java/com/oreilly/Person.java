@@ -3,6 +3,7 @@ package com.oreilly;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class Person implements Comparable<Person> {
     private Integer id;
     private String first;

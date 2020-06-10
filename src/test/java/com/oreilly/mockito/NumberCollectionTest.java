@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-@SuppressWarnings("ResultOfMethodCallIgnored")
+@SuppressWarnings("unchecked")
 public class NumberCollectionTest {
 
     @Test

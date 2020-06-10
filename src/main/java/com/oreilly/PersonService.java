@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("unused")
 public class PersonService {
-    private PersonRepository repository;
+    private final PersonRepository repository;
 
     public PersonService(PersonRepository repository) {
         this.repository = repository;

@@ -1,5 +1,6 @@
-package com.oreilly;
+package com.oreilly.hamcrest;
 
+import com.oreilly.Project;
 import org.junit.Test;
 
 import java.time.LocalDate;

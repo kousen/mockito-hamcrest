@@ -1,5 +1,6 @@
-package com.oreilly;
+package com.oreilly.hamcrest;
 
+import com.oreilly.Customer;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;

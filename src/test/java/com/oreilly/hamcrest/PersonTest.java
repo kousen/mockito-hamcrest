@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class PersonTest {
-    private Person person = new Person("Grace", "Hopper",
+    private final Person person = new Person("Grace", "Hopper",
                                        LocalDate.of(1906, Month.DECEMBER, 9));
 
     @Test
@@ -31,6 +31,7 @@ public class PersonTest {
         assertThat(person, is(not(equalTo(lovelace))));
     }
 
+    @SuppressWarnings("UnnecessaryLocalVariable")
     @Test
     public void checkSameInstance() {
         Person hopper = person;

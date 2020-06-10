@@ -2,8 +2,9 @@ package com.oreilly;
 
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class Customer implements Comparable<Customer> {
-    private String name;
+    private final String name;
 
     public Customer(String name) {
         this.name = name;

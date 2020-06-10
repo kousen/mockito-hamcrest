@@ -3,7 +3,6 @@ package com.oreilly.mockito;
 import com.oreilly.Person;
 import com.oreilly.PersonRepository;
 import com.oreilly.PersonService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -84,9 +83,8 @@ public class PersonServiceBDDJUnit5Test {
                 .delete(any(Person.class));
     }
 
+    @Test
     public void useAnswer() {
-        given(repository.findAll())
-                .willReturn(people);
         given(repository.save(any(Person.class)))
                 .will(invocation -> invocation.getArgument(0));
 
