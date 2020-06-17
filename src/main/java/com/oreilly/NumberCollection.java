@@ -10,11 +10,19 @@ public class NumberCollection {
     }
 
     @SuppressWarnings("ForLoopReplaceableByForEach")
-    public int getTotalUsingLoop() {
+    public int getTotalUsingForLoop() {
         int total = 0;
         int count = numbers.size();
         for (int i = 0; i < count; i++) {
             total += numbers.get(i);
+        }
+        return total;
+    }
+
+    public int getTotalUsingForEach() {
+        int total = 0;
+        for (int n : numbers) {
+            total += n;
         }
         return total;
     }

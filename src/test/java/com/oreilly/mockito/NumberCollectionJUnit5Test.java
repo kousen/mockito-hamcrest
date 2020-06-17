@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -28,23 +29,48 @@ public class NumberCollectionJUnit5Test {
     private NumberCollection nc;
 
     @Test
-    public void getTotalUsingLoop() {
+    public void getTotalUsingForLoop() {
         when(mockList.size()).thenReturn(3);
-        when(mockList.get(0)).thenReturn(1);
-        when(mockList.get(1)).thenReturn(2);
-        when(mockList.get(2)).thenReturn(3);
+
+        // mock exact calls
+//        when(mockList.get(0)).thenReturn(1);
+//        when(mockList.get(1)).thenReturn(2);
+//        when(mockList.get(2)).thenReturn(3);
+        // or, more generally:
+        when(mockList.get(anyInt()))
+                .thenReturn(1, 2, 3);
 
         // Only requires the stub behavior,
         //  i.e., that the get(i) methods return the expected values
-        assertThat(nc.getTotalUsingLoop(), is(equalTo(6)));
+        assertThat(nc.getTotalUsingForLoop(), is(equalTo(6)));
 
         // Verify the protocol -- that the mock methods are called
         //  the right number of times in the right order
         InOrder inOrder = inOrder(mockList);
 
+//        assertAll("verify stub methods called right num of times in proper order",
+//                () -> inOrder.verify(mockList).size(),
+//                () -> inOrder.verify(mockList, times(3)).get(anyInt()));
+
+        // or, more specifically:
         assertAll("verify stub methods called right num of times in proper order",
                 () -> inOrder.verify(mockList).size(),
-                () -> inOrder.verify(mockList, times(3)).get(anyInt()));
+                () -> inOrder.verify(mockList).get(0),
+                () -> inOrder.verify(mockList).get(1),
+                () -> inOrder.verify(mockList).get(2));
+    }
+
+    @Test
+    void getTotalUsingForEach() {
+        // forEach loops invoke the iterator() method on an Iterable
+        //   Rather than create your own implementation of Iterator,
+        //   borrow one from an existing list
+        // This is like a fake, or even a spy, but let's you verify methods
+        List<Integer> integers = Arrays.asList(1, 2, 3);
+        when(mockList.iterator()).thenReturn(integers.iterator());
+
+        assertEquals(6, nc.getTotalUsingForEach());
+        verify(mockList).iterator();
     }
 
     @Test

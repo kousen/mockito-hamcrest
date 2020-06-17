@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -30,7 +31,7 @@ public class NumberCollectionAnnotationTest {
 //    }
 
     @Test
-    public void getTotalUsingLoop() {
+    public void getTotalUsingForLoop() {
         when(mockList.size()).thenReturn(3);
         when(mockList.get(0)).thenReturn(1);
         when(mockList.get(1)).thenReturn(2);
@@ -38,12 +39,21 @@ public class NumberCollectionAnnotationTest {
 
         // Only requires the stub behavior,
         //  i.e., that the get(i) methods return the expected values
-        assertEquals(6, nc.getTotalUsingLoop());
+        assertEquals(6, nc.getTotalUsingForLoop());
 
         // Verify the protocol -- that the mock methods are called
         //  the right number of times
         verify(mockList).size();
         verify(mockList, times(3)).get(anyInt());
+    }
+
+    @Test
+    public void getTotalUsingForEach() {
+        List<Integer> integers = Arrays.asList(1, 2, 3);
+        when(mockList.iterator()).thenReturn(integers.iterator());
+
+        assertEquals(6, nc.getTotalUsingForEach());
+        verify(mockList).iterator();
     }
 
     @Test

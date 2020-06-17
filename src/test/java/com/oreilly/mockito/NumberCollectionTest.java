@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 public class NumberCollectionTest {
 
     @Test
-    public void getTotalUsingLoop() {
+    public void getTotalUsingForLoop() {
         // Create a stubbed list
         List<Integer> mockList = mock(List.class);
 
@@ -28,11 +28,23 @@ public class NumberCollectionTest {
         NumberCollection nc = new NumberCollection(mockList);
 
         // Test the method we care about
-        assertEquals(1 + 2 + 3, nc.getTotalUsingLoop());
+        assertEquals(1 + 2 + 3, nc.getTotalUsingForLoop());
 
         // Verify the protocol between NumberCollection and the stubbed list
         verify(mockList).size();
         verify(mockList, times(3)).get(anyInt());
+    }
+
+    @Test
+    public void getTotalUsingForEach() {
+        List<Integer> mockList = mock(List.class);
+        NumberCollection nc = new NumberCollection(mockList);
+
+        List<Integer> integers = Arrays.asList(1, 2, 3);
+        when(mockList.iterator()).thenReturn(integers.iterator());
+
+        assertEquals(6, nc.getTotalUsingForEach());
+        verify(mockList).iterator();
     }
 
     @Test
@@ -54,7 +66,7 @@ public class NumberCollectionTest {
 
         NumberCollection nc = new NumberCollection(stubbedList);
 
-        assertEquals(1 + 2 + 3, nc.getTotalUsingLoop());
+        assertEquals(1 + 2 + 3, nc.getTotalUsingForLoop());
         assertEquals(1 + 2 + 3, nc.getTotalUsingStream());
 
         // No built-in way to verify the method calls on stubbed list
