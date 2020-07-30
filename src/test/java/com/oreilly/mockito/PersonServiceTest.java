@@ -13,9 +13,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -30,7 +30,7 @@ public class PersonServiceTest {
     @Captor
     private ArgumentCaptor<Person> personArg;
 
-    private List<Person> people = Arrays.asList(
+    private final List<Person> people = Arrays.asList(
             new Person(1, "Grace", "Hopper", LocalDate.of(1906, Month.DECEMBER, 9)),
             new Person(2, "Ada", "Lovelace", LocalDate.of(1815, Month.DECEMBER, 10)),
             new Person(3, "Adele", "Goldberg", LocalDate.of(1945, Month.JULY, 7)),
@@ -39,7 +39,7 @@ public class PersonServiceTest {
 
     @Before
     public void init() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
 
         when(repository.findAll())
                 .thenReturn(people);

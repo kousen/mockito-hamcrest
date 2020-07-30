@@ -9,9 +9,9 @@ import static org.mockito.Mockito.*;
 
 public class PublisherTest {
 
-    private Publisher pub = new Publisher();
-    private Subscriber sub1 = mock(Subscriber.class);
-    private Subscriber sub2 = mock(Subscriber.class);
+    private final Publisher pub = new Publisher();
+    private final Subscriber sub1 = mock(Subscriber.class);
+    private final Subscriber sub2 = mock(Subscriber.class);
 
     @Before
     public void setUp() {
