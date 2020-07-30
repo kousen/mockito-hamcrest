@@ -3,7 +3,7 @@ package com.oreilly;
 import java.util.List;
 
 public class NumberCollection {
-    private List<Integer> numbers;
+    private final List<Integer> numbers;
 
     public NumberCollection(List<Integer> numbers) {
         this.numbers = numbers;
@@ -14,6 +14,14 @@ public class NumberCollection {
         int count = numbers.size();
         for (int i = 0; i < count; i++) {
             total += numbers.get(i);
+        }
+        return total;
+    }
+
+    public int getTotalUsingIterable() {
+        int total = 0;
+        for (int n : numbers) {
+            total += n;
         }
         return total;
     }

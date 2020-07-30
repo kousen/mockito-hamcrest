@@ -35,6 +35,19 @@ public class NumberCollectionTest {
         verify(mockList, times(3)).get(anyInt());
     }
 
+    @Test // @SuppressWarnings("unchecked")
+    public void getTotalUsingIterable() {
+        List<Integer> mockList = mock(List.class);
+
+        when(mockList.iterator()).thenReturn(
+                Arrays.asList(1, 2, 3).iterator());
+
+        NumberCollection nc = new NumberCollection(mockList);
+        assertEquals(1 + 2 + 3, nc.getTotalUsingIterable());
+
+        verify(mockList).iterator();
+    }
+
     @Test
     public void getTotalUsingStream() {
         List<Integer> mockList = mock(List.class);
