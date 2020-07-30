@@ -39,6 +39,7 @@ public class PersonServiceTest {
 
     @Before
     public void init() {
+        // MockitoAnnotations.initMocks(this);
         MockitoAnnotations.openMocks(this);
 
         when(repository.findAll())

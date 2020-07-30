@@ -4,6 +4,7 @@ import com.oreilly.Publisher;
 import com.oreilly.Subscriber;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatcher;
 
 import static org.mockito.Mockito.*;
 
@@ -37,5 +38,6 @@ public class PublisherTest {
 
         // sub2 still receives the messages
         verify(sub2, times(2)).receive(argThat(s -> s.matches("message \\d")));
+        verify(sub2, times(2)).receive(anyString());
     }
 }

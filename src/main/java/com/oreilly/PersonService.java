@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PersonService {
-    private PersonRepository repository;
+    private final PersonRepository repository;
 
     public PersonService(PersonRepository repository) {
         this.repository = repository;
