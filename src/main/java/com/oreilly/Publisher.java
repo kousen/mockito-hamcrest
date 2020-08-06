@@ -14,19 +14,23 @@ public class Publisher {
     }
 
     public void send(String message) {
-//        for (Subscriber sub : subscribers) {
-//            try {
-//                sub.receive(message);
-//            } catch (Exception ignored) {
-//                // evil, but what can you do?
-//            }
-//        }
-
-
-        subscribers.forEach(sub -> {
+        for (Subscriber sub : subscribers) {
             try {
                 sub.receive(message);
-            } catch (Exception ignored) {}
-        });
+            } catch (Exception ignored) {
+                // evil, but what can you do?
+            }
+        }
+
+//        subscribers.forEach(s -> catchAndKillExceptions(s, message));
+    }
+
+    private void catchAndKillExceptions(Subscriber sub, String message) {
+        try {
+            sub.receive(message);
+        } catch (Exception ignored) {
+            // ignored
+        }
     }
 }
+

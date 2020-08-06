@@ -44,6 +44,7 @@ public class NumberCollectionAnnotationTest {
         //  the right number of times
         verify(mockList).size();
         verify(mockList, times(3)).get(anyInt());
+        verify(mockList, never()).clear();
     }
 
     @Test
