@@ -1,21 +1,21 @@
 package com.oreilly.mockito;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatcher;
 import org.mockito.InOrder;
+import org.mockito.Mock;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class ListTests {
@@ -24,6 +24,19 @@ public class ListTests {
     public void basicListMock() {
         List<String> mockedList = mock(List.class);
 
+        // These would be called inside the class under test (not the mock)
+        mockedList.add("one");
+        mockedList.clear();
+
+        //verification
+        verify(mockedList).add("one");
+        // verify(mockedList).add("two"); // fails because diff arg
+        verify(mockedList).clear();
+    }
+
+    // JUnit 5 allows method parameters
+    @Test
+    public void basicListMockWithParam(@Mock List<String> mockedList) {
         // These would be called inside the class under test (not the mock)
         mockedList.add("one");
         mockedList.clear();
@@ -154,7 +167,6 @@ public class ListTests {
         // Java lambda expression implementation of ArgumetMatcher interface
         verify(mockedList).add(argThat(s -> s.length() > 5));
         verify(mockedList, times(2)).add(anyString());
-
     }
 
     @Test

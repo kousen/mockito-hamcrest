@@ -2,6 +2,7 @@
 /build/
 bin/
 out/
+/target
 !gradle/wrapper/gradle-wrapper.jar
 
 .vscode/

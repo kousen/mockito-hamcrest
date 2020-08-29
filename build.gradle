@@ -14,8 +14,8 @@ test {
     useJUnitPlatform()
 }
 
-def hamcrestVersion = '2.2'
-def mockitoVersion = '3.4.6'
+String hamcrestVersion = '2.2'
+String mockitoVersion = '3.5.6'
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.6.2'
