@@ -19,6 +19,7 @@ public class ExampleTest {
 
     @Mock
     private ArticleCalculator mockCalculator;
+
     @Mock
     private ArticleDatabase mockDatabase;
 
