@@ -3,9 +3,14 @@ package com.oreilly.mockito;
 import com.oreilly.Person;
 import com.oreilly.PersonRepository;
 import com.oreilly.PersonService;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -16,11 +21,12 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class PersonServiceTest {
+@ExtendWith(MockitoExtension.class)
+public class PersonServiceJUnit5Test {
 
     @Mock
     private PersonRepository repository;
@@ -38,23 +44,18 @@ public class PersonServiceTest {
             new Person(14, "Anita", "Borg", LocalDate.of(1949, Month.JANUARY, 17)),
             new Person(5, "Barbara", "Liskov", LocalDate.of(1939, Month.NOVEMBER, 7)));
 
-    @Before
-    public void init() {
-        // MockitoAnnotations.initMocks(this);
-        MockitoAnnotations.openMocks(this);
-
-        when(repository.findAll())
-                .thenReturn(people);
-    }
-
     @Test
     public void findMaxId() {
+        when(repository.findAll()).thenReturn(people);
+
         // assertThat(service.getHighestId(), is(14)); // Hamcrest matcher
         assertEquals(14, service.getHighestId());
     }
 
     @Test
     public void getLastNames() {
+        when(repository.findAll()).thenReturn(people);
+
         assertThat(service.getLastNames(),
                 containsInAnyOrder("Borg", "Goldberg", "Hopper",
                         "Liskov", "Lovelace"));
@@ -78,7 +79,8 @@ public class PersonServiceTest {
                         people.get(4));
 
         // test the service (which uses the mock)
-        assertThat(service.savePeople(people.toArray(new Person[0])),
+        assertThat(service.savePeople(people.get(0), people.get(1),
+                people.get(2), people.get(3), people.get(4)),
                 containsInAnyOrder(1, 2, 3, 14, 5));
 
         // verify the interaction between the service and the mock
@@ -109,12 +111,12 @@ public class PersonServiceTest {
         assertThat(ids, contains(actuals));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void savePersonThrowsException() {
         when(repository.save(any(Person.class)))
                 .thenThrow(RuntimeException.class);
 
-        service.savePeople(people.get(0));
+        assertThrows(RuntimeException.class, () -> service.savePeople(people.get(0)));
     }
 
     @Test
@@ -126,12 +128,16 @@ public class PersonServiceTest {
                 hopper.getDob());
 
         verify(repository).save(personArg.capture());
-        assertThat(personArg.getValue(), is(hopper));
-        assertThat(person, is(hopper));
+
+        assertAll(
+                () -> assertThat(personArg.getValue(), is(hopper)),
+                () -> assertThat(person, is(hopper))
+        );
     }
 
     @Test
     public void deleteAll() {
+        when(repository.findAll()).thenReturn(people);
         doNothing().when(repository).delete(any(Person.class));
 
         service.deleteAll();

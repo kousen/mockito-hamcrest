@@ -4,7 +4,6 @@ import com.oreilly.Publisher;
 import com.oreilly.Subscriber;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentMatcher;
 
 import static org.mockito.Mockito.*;
 

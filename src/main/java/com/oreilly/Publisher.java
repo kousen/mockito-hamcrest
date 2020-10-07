@@ -13,6 +13,7 @@ public class Publisher {
         }
     }
 
+    // Want to test this method
     public void send(String message) {
         for (Subscriber sub : subscribers) {
             try {

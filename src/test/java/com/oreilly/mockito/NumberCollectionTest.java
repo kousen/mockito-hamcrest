@@ -51,8 +51,7 @@ public class NumberCollectionTest {
     @Test
     public void getTotalUsingStream() {
         List<Integer> mockList = mock(List.class);
-        when(mockList.stream()).thenReturn(
-                Stream.of(1, 2, 3));
+        when(mockList.stream()).thenReturn(Stream.of(1, 2, 3));
 
         NumberCollection nc = new NumberCollection(mockList);
 
