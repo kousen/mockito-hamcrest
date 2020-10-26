@@ -17,6 +17,7 @@ public class PublisherTest {
     public void setUp() {
         pub.addSubscriber(sub1);
         pub.addSubscriber(sub2);
+        // System.out.println(sub1.getClass().getName());
     }
 
     @Test

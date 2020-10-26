@@ -35,17 +35,17 @@ public class ListTests {
     }
 
     // JUnit 5 allows method parameters
-    @Test
-    public void basicListMockWithParam(@Mock List<String> mockedList) {
-        // These would be called inside the class under test (not the mock)
-        mockedList.add("one");
-        mockedList.clear();
-
-        //verification
-        verify(mockedList).add("one");
-        // verify(mockedList).add("two"); // fails because diff arg
-        verify(mockedList).clear();
-    }
+//    @Test
+//    public void basicListMockWithParam(@Mock List<String> mockedList) {
+//        // These would be called inside the class under test (not the mock)
+//        mockedList.add("one");
+//        mockedList.clear();
+//
+//        //verification
+//        verify(mockedList).add("one");
+//        // verify(mockedList).add("two"); // fails because diff arg
+//        verify(mockedList).clear();
+//    }
 
     @Test(expected = RuntimeException.class)
     public void stubbedList() {
@@ -73,21 +73,21 @@ public class ListTests {
 
     @Test
     public void chainedMethodCalls() {
-        List<String> mockedList = mock(List.class);
+        List<Integer> mockedList = mock(List.class);
 
-        when(mockedList.size())
-                .thenReturn(0)
-                .thenReturn(1)
-                .thenReturn(2);
+        when(mockedList.get(anyInt()))
+                .thenReturn(0)  // first call to get returns 0
+                .thenReturn(1)  // second call returns 1
+                .thenReturn(2); // third and subsequent calls returns 2
 
         // tests that the mock is "stubbed" properly
-        assertThat(0, is(mockedList.size()));
-        assertThat(1, is(mockedList.size()));
-        assertThat(2, is(mockedList.size()));
-        assertThat(2, is(mockedList.size()));
+        assertThat(0, is(mockedList.get(999)));
+        assertThat(1, is(mockedList.get(999)));
+        assertThat(2, is(mockedList.get(999)));
+        assertThat(2, is(mockedList.get(999)));
 
         // tests the protocol, i.e. size method is called the expected number of times
-        verify(mockedList, times(4)).size();
+        verify(mockedList, times(4)).get(anyInt());
     }
 
     @Test
@@ -116,7 +116,7 @@ public class ListTests {
         // when(mockedList.contains(argThat(isValid()))).thenReturn("element");
 
         //following prints "element"
-        assertThat("element", is(mockedList.get(999)));
+        assertThat("element", is(mockedList.get(999)));  // Hamcrest matcher
         IntStream.rangeClosed(1, 1000)
                  .forEach(x -> assertThat("element", is(mockedList.get(x))));
 
