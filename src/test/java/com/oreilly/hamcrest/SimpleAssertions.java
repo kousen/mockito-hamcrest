@@ -42,7 +42,7 @@ public class SimpleAssertions {
                                    LocalDate.of(1906, Month.DECEMBER, 9));
         Person lovelace = new Person(2, "Ada", "Lovelace",
                                      LocalDate.of(1815, Month.DECEMBER, 10));
-        assertThat(lovelace, is(greaterThan(hopper)));
+        assertThat(lovelace, is(greaterThan(hopper))); // last name alphabetical
     }
 
     @Test

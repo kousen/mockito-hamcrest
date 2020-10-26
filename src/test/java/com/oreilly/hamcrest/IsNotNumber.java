@@ -15,6 +15,7 @@ public class IsNotNumber extends TypeSafeMatcher<Double> {
         description.appendText("not a number");
     }
 
+    // Mimic the factory methods from Matchers.*
     public static Matcher<Double> notANumber() {
         return new IsNotNumber();
     }

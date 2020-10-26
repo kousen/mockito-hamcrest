@@ -1,7 +1,7 @@
 package com.oreilly.hamcrest;
 
 import com.oreilly.Person;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -9,25 +9,28 @@ import java.time.chrono.Era;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class PersonTest {
+public class PersonJUnit5Test {
     private final Person person = new Person("Grace", "Hopper",
-                                       LocalDate.of(1906, Month.DECEMBER, 9));
+            LocalDate.of(1906, Month.DECEMBER, 9));
 
     @Test
     public void checkEqualsMethod() {
         Person hopper = new Person("Grace", "Hopper",
-                                   LocalDate.of(1906, Month.DECEMBER, 9));
+                LocalDate.of(1906, Month.DECEMBER, 9));
 
-        assertThat(person, is(equalTo(hopper)));
-        assertThat(person, equalTo(hopper));
-        assertThat(person, is(hopper)); // same as is(equalTo(...))
+        assertAll(
+                () -> assertThat(person, is(equalTo(hopper))),
+                () -> assertThat(person, equalTo(hopper)),
+                () -> assertThat(person, is(hopper)) // same as is(equalTo(...))
+        );
     }
 
     @Test
     public void checkNotEqual() {
         Person lovelace = new Person("Ada", "Lovelace",
-                                     LocalDate.of(1815, Month.DECEMBER, 10));
+                LocalDate.of(1815, Month.DECEMBER, 10));
         assertThat(person, is(not(equalTo(lovelace))));
     }
 
@@ -37,7 +40,7 @@ public class PersonTest {
         assertThat(hopper, sameInstance(person));
 
         Person copy = new Person("Grace", "Hopper",
-                                 LocalDate.of(1906, Month.DECEMBER, 9));
+                LocalDate.of(1906, Month.DECEMBER, 9));
         assertThat(copy, not(sameInstance(person)));
         assertThat(copy, is(equalTo(person)));
     }
@@ -45,7 +48,7 @@ public class PersonTest {
     @Test
     public void checkToString() {
         assertThat(person,
-                   hasToString("Person{first='Grace', last='Hopper', dob=1906-12-09}"));
+                hasToString("Person{first='Grace', last='Hopper', dob=1906-12-09}"));
     }
 
     @Test
@@ -62,7 +65,8 @@ public class PersonTest {
         assertThat(p.getLast(), notNullValue(String.class));
         Era era = p.getDob().getEra();
         assertThat(era, hasToString("BCE"));
-        assertThat(LocalDate.now().getEra(), hasToString("CE"));
+        assertThat(LocalDate.now()
+                .getEra(), hasToString("CE"));
     }
 
     @Test
@@ -78,7 +82,7 @@ public class PersonTest {
     @Test
     public void sameProperties() {
         Person hopper = new Person("Grace", "Hopper",
-                                   LocalDate.of(1906, Month.DECEMBER, 9));
+                LocalDate.of(1906, Month.DECEMBER, 9));
 
         // useful if Person did NOT have an equals method override
         assertThat(person, samePropertyValuesAs(hopper));
@@ -87,7 +91,7 @@ public class PersonTest {
     @Test
     public void equalButNotSameProperties() {
         Person hopper = new Person(1, "Grace", "Hopper",
-                                   LocalDate.of(1906, Month.DECEMBER, 9));
+                LocalDate.of(1906, Month.DECEMBER, 9));
         assertThat(person, not(samePropertyValuesAs(hopper)));
         assertThat(person, is(equalTo(hopper))); // works because equals(person) doesn't check ids
 

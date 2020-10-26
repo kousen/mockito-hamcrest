@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class CollectionsTests {
-    private List<String> strings = Arrays.asList("this", "is", "a",
+    private final List<String> strings = Arrays.asList("this", "is", "a",
                                                  "list", "of", "strings");
 
     @Test
