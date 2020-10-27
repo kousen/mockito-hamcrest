@@ -78,7 +78,8 @@ public class PersonServiceTest {
                         people.get(4));
 
         // test the service (which uses the mock)
-        assertThat(service.savePeople(people.toArray(new Person[0])),
+        assertThat(service.savePeople(people.get(0), people.get(1),
+                people.get(2), people.get(3), people.get(4)),
                 containsInAnyOrder(1, 2, 3, 14, 5));
 
         // verify the interaction between the service and the mock
@@ -126,8 +127,8 @@ public class PersonServiceTest {
                 hopper.getDob());
 
         verify(repository).save(personArg.capture());
-        assertThat(personArg.getValue(), is(hopper));
-        assertThat(person, is(hopper));
+        assertThat(personArg.getValue(), is(hopper));  // verifies the local variable
+        assertThat(person, is(hopper));  // verifies the return
     }
 
     @Test

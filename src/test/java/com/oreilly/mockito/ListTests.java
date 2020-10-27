@@ -7,8 +7,10 @@ import org.mockito.InOrder;
 import org.mockito.Mock;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -146,6 +148,18 @@ public class ListTests {
         assertTrue(mockedList.add("abcdef"));
     }
 
+//    private List<String> createMyList(String... args) {
+//        return Arrays.stream(args)
+//                .collect(Collectors.toList());
+//    }
+//
+//    @Test
+//    public void methodWithMultipleArgs() {
+//        List<String> strings = mock(List.class);
+//
+//        verify(strings).addStrings(eq("one"), anyString());
+//    }
+
     @Test
     public void argThatDemo() {
         List<String> mockedList = mock(List.class);
@@ -174,6 +188,7 @@ public class ListTests {
         List<String> mockedList = mock(List.class);
         when(mockedList.add(anyString())).thenReturn(true);
 
+        // Somewhere in the test, this gets called:
         mockedList.add("abc");
 
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);

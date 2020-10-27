@@ -3,6 +3,7 @@ package com.oreilly.mockito;
 import com.oreilly.Person;
 import com.oreilly.PersonRepository;
 import com.oreilly.PersonService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -42,6 +43,13 @@ public class PersonServiceJUnit5Test {
             new Person(3, "Adele", "Goldberg", LocalDate.of(1945, Month.JULY, 7)),
             new Person(14, "Anita", "Borg", LocalDate.of(1949, Month.JANUARY, 17)),
             new Person(5, "Barbara", "Liskov", LocalDate.of(1939, Month.NOVEMBER, 7)));
+
+    // Can't be done because JUnit 5 extension is _strict_ and
+    // many of these tests don't call repository.findAll()
+//    @BeforeEach
+//    void setUp() {
+//        when(repository.findAll()).thenReturn(people);
+//    }
 
     @Test
     public void findMaxId() {
