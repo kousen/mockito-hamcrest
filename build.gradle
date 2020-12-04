@@ -15,7 +15,7 @@ test {
 }
 
 String hamcrestVersion = '2.2'
-String mockitoVersion = '3.5.13'
+String mockitoVersion = '3.6.28'
 String junitVersion = '5.7.0'
 
 dependencies {
