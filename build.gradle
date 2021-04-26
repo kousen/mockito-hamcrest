@@ -15,15 +15,15 @@ test {
 }
 
 String hamcrestVersion = '2.2'
-String mockitoVersion = '3.6.28'
-String junitVersion = '5.7.0'
+String mockitoVersion = '3.9.0'
+String junitVersion = '5.7.1'
 
 dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
     testRuntimeOnly "org.junit.vintage:junit-vintage-engine:$junitVersion"
 
     // JUnit 4.13 includes hamcrest-core 1.3
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.2'
     
     // Declare "shim" jar to force upgrade
     testImplementation "org.hamcrest:hamcrest-library:$hamcrestVersion"
