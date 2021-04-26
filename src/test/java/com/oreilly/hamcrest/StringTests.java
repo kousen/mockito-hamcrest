@@ -58,4 +58,9 @@ public class StringTests {
         assertThat(s, is(emptyOrNullString()));
         assertThat(null, is(emptyOrNullString()));
     }
+
+    @Test
+    public void checkCarriageReturnLineFeed() {
+        assertThat("first\rsecond", equalToCompressingWhiteSpace("first\nsecond"));
+    }
 }

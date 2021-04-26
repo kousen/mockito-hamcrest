@@ -7,7 +7,7 @@ group 'com.oreilly'
 version '1.0'
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 test {

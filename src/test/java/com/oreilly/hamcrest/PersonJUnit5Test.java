@@ -65,8 +65,7 @@ public class PersonJUnit5Test {
         assertThat(p.getLast(), notNullValue(String.class));
         Era era = p.getDob().getEra();
         assertThat(era, hasToString("BCE"));
-        assertThat(LocalDate.now()
-                .getEra(), hasToString("CE"));
+        assertThat(LocalDate.now().getEra(), hasToString("CE"));
     }
 
     @Test
