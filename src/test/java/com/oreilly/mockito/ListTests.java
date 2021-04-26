@@ -4,13 +4,10 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatcher;
 import org.mockito.InOrder;
-import org.mockito.Mock;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -275,7 +272,7 @@ public class ListTests {
     public void exceptionHandling() {
         List<String> mockedList = mock(List.class);
         doThrow(new RuntimeException()).when(mockedList).clear();
-        // when(mockedList.clear()).thenThrow(new RuntimeException())
+        // when(mockedList.clear()).thenThrow(new RuntimeException());
 
         //following throws RuntimeException:
         mockedList.clear();

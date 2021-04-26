@@ -67,6 +67,7 @@ public class NumberCollectionTest {
         NumberCollection nc = new NumberCollection(stubbedList);
 
         assertEquals(1 + 2 + 3, nc.getTotalUsingLoop());
+        assertEquals(1 + 2 + 3, nc.getTotalUsingIterable());
         assertEquals(1 + 2 + 3, nc.getTotalUsingStream());
 
         // No built-in way to verify the method calls on stubbed list

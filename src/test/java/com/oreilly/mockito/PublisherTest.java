@@ -17,7 +17,8 @@ public class PublisherTest {
     public void setUp() {
         pub.addSubscriber(sub1);
         pub.addSubscriber(sub2);
-        // System.out.println(sub1.getClass().getName());
+//        System.out.println(sub1.getClass().getName());
+//        System.out.println(sub2.getClass().getName());
     }
 
     @Test
@@ -37,8 +38,10 @@ public class PublisherTest {
         pub.send("message 2");
 
         // sub2 still receives the messages
+        verify(sub2, times(2)).receive(anyString());  // called with any string
+
+        // called with strings that match the given pattern
         verify(sub2, times(2)).receive(argThat(s -> s.matches("message \\d")));
-        verify(sub2, times(2)).receive(anyString());
 
         // sub1 receive method was called twice, even though it threw exception
         verify(sub1, times(2)).receive(anyString());
