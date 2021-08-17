@@ -15,8 +15,8 @@ test {
 }
 
 String hamcrestVersion = '2.2'
-String mockitoVersion = '3.9.0'
-String junitVersion = '5.7.1'
+String mockitoVersion = '3.11.2'
+String junitVersion = '5.7.2'
 
 dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
