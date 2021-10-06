@@ -57,6 +57,9 @@ public class PersonServiceJUnit5Test {
 
         // assertThat(service.getHighestId(), is(14)); // Hamcrest matcher
         assertEquals(14, service.getHighestId());
+
+        verify(repository).findAll();
+        verifyNoMoreInteractions(repository);
     }
 
     @Test

@@ -33,5 +33,5 @@ dependencies {
     testImplementation "org.mockito:mockito-junit-jupiter:$mockitoVersion"
 
     // Used to mock final classes and methods:
-    // testImplementation 'org.mockito:mockito-inline:+'
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
 }
