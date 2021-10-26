@@ -34,6 +34,9 @@ public class PublisherTest {
         // sub1 throws an exception every time
         doThrow(RuntimeException.class).when(sub1).receive(anyString());
 
+        // Not necessary, since void methods already do nothing
+        //doNothing().when(sub2).receive(anyString());
+
         pub.send("message 1");
         pub.send("message 2");
 

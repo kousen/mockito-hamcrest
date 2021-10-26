@@ -85,6 +85,7 @@ public class PersonServiceTest {
         // verify the interaction between the service and the mock
         verify(repository, times(5)).save(any(Person.class));
         verify(repository, never()).delete(any(Person.class));
+        verifyNoMoreInteractions(repository);
     }
 
     @Test
@@ -121,6 +122,7 @@ public class PersonServiceTest {
     @Test
     public void createPerson() {
         Person hopper = people.get(0);
+
         Person person = service.createPerson(hopper.getId(),
                 hopper.getFirst(),
                 hopper.getLast(),
@@ -133,6 +135,7 @@ public class PersonServiceTest {
 
     @Test
     public void deleteAll() {
+        // Not necessary, but works
         doNothing().when(repository).delete(any(Person.class));
 
         service.deleteAll();
