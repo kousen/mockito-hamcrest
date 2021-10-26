@@ -27,6 +27,7 @@ public class Person implements Comparable<Person> {
         return last.compareTo(person.last);
     }
 
+    // Javabeans property
     public String getName() {
         return String.format("%s %s", first, last);
     }

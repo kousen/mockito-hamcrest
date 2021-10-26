@@ -65,9 +65,9 @@ public class SimpleAssertions {
 
         Person hopper3 = hopper1;
 
-        assertThat(hopper2, is(hopper1));
+        assertThat(hopper2, is(hopper1));  // equals method comparison
         assertThat(hopper2, is(not(sameInstance(hopper3))));
-        assertThat(hopper1, sameInstance(hopper3));
+        assertThat(hopper1, sameInstance(hopper3));  // references equality
     }
 
     @Test
@@ -75,6 +75,7 @@ public class SimpleAssertions {
         Person hopper = null;
         assertThat(hopper, nullValue());
         assertThat(hopper, nullValue(Person.class));
+        assertThat(hopper, is(nullValue()));
 
         hopper = new Person(1, "Grace", "Hopper",
                             LocalDate.of(1906, Month.DECEMBER, 9));
