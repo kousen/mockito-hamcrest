@@ -72,4 +72,22 @@ public class NumberCollectionTest {
 
         // No built-in way to verify the method calls on stubbed list
     }
+
+    @Test
+    public void spyOnList() {
+        // Spy on a real list
+        List<Integer> spyList = spy(Arrays.asList(1, 2, 3));
+
+        NumberCollection nc = new NumberCollection(spyList);
+
+        assertEquals(1 + 2 + 3, nc.getTotalUsingLoop());
+        assertEquals(1 + 2 + 3, nc.getTotalUsingIterable());
+        assertEquals(1 + 2 + 3, nc.getTotalUsingStream());
+
+        // Can verify a spy
+        verify(spyList).size();
+        verify(spyList, times(3)).get(anyInt());
+        verify(spyList).iterator();
+        verify(spyList).stream();
+    }
 }
