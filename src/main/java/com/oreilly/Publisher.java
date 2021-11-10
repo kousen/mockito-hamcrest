@@ -22,16 +22,6 @@ public class Publisher {
                 // evil, but what can you do?
             }
         }
-
-//        subscribers.forEach(s -> catchAndKillExceptions(s, message));
-    }
-
-    private void catchAndKillExceptions(Subscriber sub, String message) {
-        try {
-            sub.receive(message);
-        } catch (Exception ignored) {
-            // ignored
-        }
     }
 }
 

@@ -4,6 +4,7 @@ import com.oreilly.Publisher;
 import com.oreilly.Subscriber;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InOrder;
 
 import static org.mockito.Mockito.*;
 
@@ -25,6 +26,15 @@ public class PublisherTest {
     public void testSend() {
         pub.send("Hello");
 
+        verify(sub1).receive("Hello");
+        verify(sub2).receive("Hello");
+    }
+
+    @Test
+    public void testSendInOrder() {
+        pub.send("Hello");
+
+        InOrder inorder = inOrder(sub1, sub2);
         verify(sub1).receive("Hello");
         verify(sub2).receive("Hello");
     }
