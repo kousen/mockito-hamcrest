@@ -87,6 +87,7 @@ public class ListTests {
 
         // tests the protocol, i.e. size method is called the expected number of times
         verify(mockedList, times(4)).get(anyInt());
+        verifyNoMoreInteractions(mockedList);
     }
 
     @Test

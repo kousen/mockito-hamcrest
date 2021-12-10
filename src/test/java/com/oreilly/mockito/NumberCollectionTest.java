@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.*;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class NumberCollectionTest {
@@ -33,6 +34,29 @@ public class NumberCollectionTest {
         // Verify the protocol between NumberCollection and the stubbed list
         verify(mockList).size();
         verify(mockList, times(3)).get(anyInt());
+    }
+
+    @Test
+    public void getTotalUsingLoop_BDD() {
+        // Create a stubbed list
+        List<Integer> mockList = mock(List.class);
+
+        // Set the expectations on the stub
+        given(mockList.size()).willReturn(3);
+        given(mockList.get(0)).willReturn(1);
+        given(mockList.get(1)).willReturn(2);
+        given(mockList.get(2)).willReturn(3);
+
+        // Inject the stub into the class we want to test
+        NumberCollection nc = new NumberCollection(mockList);
+
+        // Test the method we care about
+        assertEquals(1 + 2 + 3, nc.getTotalUsingLoop());
+
+        // Verify the protocol between NumberCollection and the stubbed list
+        then(mockList).should().size();
+        then(mockList).should(times(3)).get(anyInt());
+        then(mockList).shouldHaveNoMoreInteractions();
     }
 
     @Test // @SuppressWarnings("unchecked")
