@@ -15,21 +15,26 @@ test {
 }
 
 String hamcrestVersion = '2.2'
-String mockitoVersion = '4.1.0'
+String mockitoVersion = '4.3.1'
 String junit5Version = '5.8.2'
+String assertjVersion = '3.22.0'
 
 dependencies {
-    testImplementation "org.junit.jupiter:junit-jupiter:$junit5Version"
+    // JUnit, including vintage engine
+    testImplementation(platform("org.junit:junit-bom:$junit5Version"))
+    testImplementation('org.junit.jupiter:junit-jupiter')
     testImplementation 'junit:junit:4.13.2'
     testRuntimeOnly "org.junit.vintage:junit-vintage-engine:$junit5Version"
 
-    // Declare "shim" jar to force upgrade
+    // Hamcrest
     testImplementation "org.hamcrest:hamcrest-library:$hamcrestVersion"
     testImplementation "org.hamcrest:hamcrest:$hamcrestVersion"
-    
+
+    // AssertJ
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
+
+    // Mockito
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "org.mockito:mockito-junit-jupiter:$mockitoVersion"
-
-    // Used to mock final classes and methods:
     testImplementation "org.mockito:mockito-inline:$mockitoVersion"
 }
