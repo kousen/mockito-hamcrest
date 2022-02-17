@@ -9,6 +9,7 @@ public class NumberCollection {
         this.numbers = numbers;
     }
 
+    @SuppressWarnings("ForLoopReplaceableByForEach")
     public int getTotalUsingLoop() {
         int total = 0;
         int count = numbers.size();

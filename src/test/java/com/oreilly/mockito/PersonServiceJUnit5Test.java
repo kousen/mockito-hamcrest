@@ -3,7 +3,6 @@ package com.oreilly.mockito;
 import com.oreilly.Person;
 import com.oreilly.PersonRepository;
 import com.oreilly.PersonService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -132,11 +131,21 @@ public class PersonServiceJUnit5Test {
     @Test
     public void createPerson() {
         Person hopper = people.get(0);
-        Person person = service.createPerson(hopper.getId(),
+
+        // The method under test doesn't use the return value from save,
+        // so we don't need to mock it, but if we wanted to, we could add:
+        // when(repository.save(any(Person.class))).thenReturn(hopper);
+
+        // Method under test
+        Person person = service.createPerson(
+                hopper.getId(),
                 hopper.getFirst(),
                 hopper.getLast(),
-                hopper.getDob());
+                hopper.getDob()
+        );
 
+        // Check that save was called on the mock repository
+        // and capture the argument passed to it
         verify(repository).save(personArg.capture());
 
         assertAll(

@@ -3,6 +3,7 @@ package com.oreilly.mockito;
 import com.oreilly.NumberCollection;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatcher;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -36,7 +37,7 @@ public class NumberCollectionJUnit5Test {
 
         // Only requires the stub behavior,
         //  i.e., that the get(i) methods return the expected values
-        assertThat(nc.getTotalUsingLoop(), is(equalTo(6)));
+        assertEquals(1 + 2 + 3, nc.getTotalUsingLoop());
 
         // Verify the protocol -- that the mock methods are called
         //  the right number of times in the right order
@@ -44,7 +45,8 @@ public class NumberCollectionJUnit5Test {
 
         assertAll("verify stub methods called right num of times in proper order",
                 () -> inOrder.verify(mockList).size(),
-                () -> inOrder.verify(mockList, times(3)).get(anyInt()));
+                () -> inOrder.verify(mockList, times(3)).get(anyInt())
+        );
     }
 
     @Test
@@ -60,7 +62,8 @@ public class NumberCollectionJUnit5Test {
 
         // Only requires the stub behavior,
         //  i.e., that the get(i) methods return the expected values
-        assertThat(nc.getTotalUsingLoop(), is(equalTo(6)));
+        // assertThat(nc.getTotalUsingLoop(), is(equalTo(6)));
+        assertEquals(1 + 2 + 3, nc.getTotalUsingLoop());
 
         // Verify the protocol -- that the mock methods are called
         //  the right number of times in the right order
@@ -82,5 +85,4 @@ public class NumberCollectionJUnit5Test {
         //  the right number of times
         verify(mockList).stream();
     }
-
 }

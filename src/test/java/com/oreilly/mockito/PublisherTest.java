@@ -4,6 +4,7 @@ import com.oreilly.Publisher;
 import com.oreilly.Subscriber;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatcher;
 import org.mockito.InOrder;
 
 import static org.mockito.Mockito.*;
@@ -35,14 +36,17 @@ public class PublisherTest {
         pub.send("Hello");
 
         InOrder inorder = inOrder(sub1, sub2);
-        verify(sub1).receive("Hello");
-        verify(sub2).receive("Hello");
+        inorder.verify(sub1).receive("Hello");
+        inorder.verify(sub2).receive("Hello");
     }
 
     @Test
     public void testSendWithBadSubscriber() {
         // sub1 throws an exception every time
         doThrow(RuntimeException.class).when(sub1).receive(anyString());
+
+        // Does not compile
+        // when(sub1.receive(anyString())).thenThrow(new RuntimeException());
 
         // Not necessary, since void methods already do nothing
         //doNothing().when(sub2).receive(anyString());
@@ -54,7 +58,8 @@ public class PublisherTest {
         verify(sub2, times(2)).receive(anyString());  // called with any string
 
         // called with strings that match the given pattern
-        verify(sub2, times(2)).receive(argThat(s -> s.matches("message \\d")));
+        verify(sub2, times(2))
+                .receive(argThat(s -> s.matches("message \\d")));
 
         // sub1 receive method was called twice, even though it threw exception
         verify(sub1, times(2)).receive(anyString());

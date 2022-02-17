@@ -6,6 +6,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+// Java layered architecture:
+// Presentation layer (controllers and views)
+// Service layer (business logic and transaction boundaries)
+// Persistence layer (data access objects and repositories)
+// DB
 public class PersonService {
     private final PersonRepository repository;
 

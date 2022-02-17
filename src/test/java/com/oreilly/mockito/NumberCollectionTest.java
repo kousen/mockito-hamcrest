@@ -56,6 +56,7 @@ public class NumberCollectionTest {
         // Verify the protocol between NumberCollection and the stubbed list
         then(mockList).should().size();
         then(mockList).should(times(3)).get(anyInt());
+        // then(mockList).should(times(0)).remove(anyInt());
         then(mockList).shouldHaveNoMoreInteractions();
     }
 
@@ -76,6 +77,7 @@ public class NumberCollectionTest {
     public void getTotalUsingStream() {
         List<Integer> mockList = mock(List.class);
         when(mockList.stream()).thenReturn(Stream.of(1, 2, 3));
+        // when(mockList.size()).thenReturn(3); // In JUnit 5, which is strict, this is not allowed
 
         NumberCollection nc = new NumberCollection(mockList);
 

@@ -9,5 +9,4 @@ public interface PersonRepository {
     List<Person> findAll();
     long count();
     void delete(Person person);
-    boolean existsById(Integer id);
 }
