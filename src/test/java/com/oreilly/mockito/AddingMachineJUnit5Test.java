@@ -1,9 +1,8 @@
 package com.oreilly.mockito;
 
-import com.oreilly.NumberCollection;
+import com.oreilly.AddingMachine;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatcher;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -12,21 +11,18 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@SuppressWarnings("ResultOfMethodCallIgnored")
+@SuppressWarnings({"ResultOfMethodCallIgnored", "CommentedOutCode"})
 @ExtendWith(MockitoExtension.class)
-public class NumberCollectionJUnit5Test {
+public class AddingMachineJUnit5Test {
     @Mock
     private List<Integer> mockList;
 
     @InjectMocks
-    private NumberCollection nc;
+    private AddingMachine machine;
 
     @Test
     public void getTotalUsingLoop() {
@@ -37,16 +33,14 @@ public class NumberCollectionJUnit5Test {
 
         // Only requires the stub behavior,
         //  i.e., that the get(i) methods return the expected values
-        assertEquals(1 + 2 + 3, nc.getTotalUsingLoop());
+        assertEquals(1 + 2 + 3, machine.getTotalUsingLoop());
 
         // Verify the protocol -- that the mock methods are called
         //  the right number of times in the right order
         InOrder inOrder = inOrder(mockList);
 
-        assertAll("verify stub methods called right num of times in proper order",
-                () -> inOrder.verify(mockList).size(),
-                () -> inOrder.verify(mockList, times(3)).get(anyInt())
-        );
+        inOrder.verify(mockList).size();
+        inOrder.verify(mockList, times(3)).get(anyInt());
     }
 
     @Test
@@ -63,7 +57,7 @@ public class NumberCollectionJUnit5Test {
         // Only requires the stub behavior,
         //  i.e., that the get(i) methods return the expected values
         // assertThat(nc.getTotalUsingLoop(), is(equalTo(6)));
-        assertEquals(1 + 2 + 3, nc.getTotalUsingLoop());
+        assertEquals(1 + 2 + 3, machine.getTotalUsingLoop());
 
         // Verify the protocol -- that the mock methods are called
         //  the right number of times in the right order
@@ -79,10 +73,25 @@ public class NumberCollectionJUnit5Test {
         when(mockList.stream()).thenReturn(Stream.of(1, 2, 3));
 
         // Only requires the stub behavior,
-        assertEquals(6, nc.getTotalUsingStream());
+        assertEquals(6, machine.getTotalUsingStream());
 
         // Verify the protocol -- that the mock methods are called
         //  the right number of times
         verify(mockList).stream();
+    }
+
+    @Test
+    void getTotalUsingLoopCustomMatcher() {
+        when(mockList.size()).thenReturn(3);
+        when(mockList.get(anyInt()))
+                .thenReturn(1, 2, 3);
+
+        assertEquals(1 + 2 + 3, machine.getTotalUsingLoop());
+
+        // Custom matcher: intThat takes an ArgumentMatcher<Integer>
+        verify(mockList, times(3)).get(intThat(n -> n < 3));
+
+        // This line throws an NPE. Don't use argThat for primitives.
+        // verify(mockList, times(3)).get(argThat(n -> n < 3));
     }
 }

@@ -277,17 +277,4 @@ public class ListTests {
         //following throws RuntimeException:
         mockedList.clear();
     }
-
-    @Test
-    public void mockFinalClassLocalDate() {
-        LocalDate mockDate = mock(LocalDate.class);
-
-        when(mockDate.toString()).thenReturn("1969-07-20");
-        when(mockDate.getYear()).thenReturn(1969);
-
-        assertThat(mockDate, hasToString("1969-07-20"));
-        int year = mockDate.getYear();
-
-        verify(mockDate).getYear();
-    }
 }

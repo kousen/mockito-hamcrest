@@ -1,17 +1,11 @@
 package com.oreilly.mockito;
 
-import com.oreilly.NumberCollection;
-import org.junit.Before;
-import org.junit.Rule;
+import com.oreilly.AddingMachine;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.junit.MockitoRule;
-import org.mockito.quality.Strictness;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -20,12 +14,12 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class NumberCollectionAnnotationTest {
+public class AddingMachineAnnotationTest {
     @Mock
     private List<Integer> mockList;
 
     @InjectMocks
-    private NumberCollection nc;
+    private AddingMachine machine;
 
 //    @Rule
 //    public MockitoRule rule = MockitoJUnit.rule().strictness(Strictness.STRICT_STUBS);
@@ -44,7 +38,7 @@ public class NumberCollectionAnnotationTest {
 
         // Only requires the stub behavior,
         //  i.e., that the get(i) methods return the expected values
-        assertEquals(6, nc.getTotalUsingLoop());
+        assertEquals(6, machine.getTotalUsingLoop());
 
         // Verify the protocol -- that the mock methods are called
         //  the right number of times
@@ -58,7 +52,7 @@ public class NumberCollectionAnnotationTest {
         when(mockList.stream()).thenReturn(Stream.of(1, 2, 3));
 
         // Only requires the stub behavior,
-        assertEquals(6, nc.getTotalUsingStream());
+        assertEquals(6, machine.getTotalUsingStream());
 
         // Verify the protocol -- that the mock methods are called
         //  the right number of times

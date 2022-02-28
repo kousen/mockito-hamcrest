@@ -2,10 +2,10 @@ package com.oreilly;
 
 import java.util.List;
 
-public class NumberCollection {
+public class AddingMachine {
     private final List<Integer> numbers;
 
-    public NumberCollection(List<Integer> numbers) {
+    public AddingMachine(List<Integer> numbers) {
         this.numbers = numbers;
     }
 

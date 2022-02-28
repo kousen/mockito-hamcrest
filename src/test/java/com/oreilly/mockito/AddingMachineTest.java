@@ -1,6 +1,6 @@
 package com.oreilly.mockito;
 
-import com.oreilly.NumberCollection;
+import com.oreilly.AddingMachine;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.BDDMockito.*;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
-public class NumberCollectionTest {
+public class AddingMachineTest {
 
     @Test
     public void getTotalUsingLoop() {
@@ -26,12 +26,12 @@ public class NumberCollectionTest {
         when(mockList.get(2)).thenReturn(3);
 
         // Inject the stub into the class we want to test
-        NumberCollection nc = new NumberCollection(mockList);
+        AddingMachine machine = new AddingMachine(mockList);
 
         // Test the method we care about
-        assertEquals(1 + 2 + 3, nc.getTotalUsingLoop());
+        assertEquals(1 + 2 + 3, machine.getTotalUsingLoop());
 
-        // Verify the protocol between NumberCollection and the stubbed list
+        // Verify the protocol between AddingMachine and the stubbed list
         verify(mockList).size();
         verify(mockList, times(3)).get(anyInt());
     }
@@ -43,19 +43,18 @@ public class NumberCollectionTest {
 
         // Set the expectations on the stub
         given(mockList.size()).willReturn(3);
-        given(mockList.get(0)).willReturn(1);
-        given(mockList.get(1)).willReturn(2);
-        given(mockList.get(2)).willReturn(3);
+        given(mockList.get(anyInt())).willReturn(1, 2, 3);
 
         // Inject the stub into the class we want to test
-        NumberCollection nc = new NumberCollection(mockList);
+        AddingMachine machine = new AddingMachine(mockList);
 
         // Test the method we care about
-        assertEquals(1 + 2 + 3, nc.getTotalUsingLoop());
+        assertEquals(1 + 2 + 3, machine.getTotalUsingLoop());
 
-        // Verify the protocol between NumberCollection and the stubbed list
+        // Verify the protocol between AddingMachine and the stubbed list
         then(mockList).should().size();
-        then(mockList).should(times(3)).get(anyInt());
+        then(mockList).should(times(3))
+                .get(intThat(n -> n >= 0 && n < 3));
         // then(mockList).should(times(0)).remove(anyInt());
         then(mockList).shouldHaveNoMoreInteractions();
     }
@@ -67,8 +66,8 @@ public class NumberCollectionTest {
         when(mockList.iterator()).thenReturn(
                 Arrays.asList(1, 2, 3).iterator());
 
-        NumberCollection nc = new NumberCollection(mockList);
-        assertEquals(1 + 2 + 3, nc.getTotalUsingIterable());
+        AddingMachine machine = new AddingMachine(mockList);
+        assertEquals(1 + 2 + 3, machine.getTotalUsingIterable());
 
         verify(mockList).iterator();
     }
@@ -79,22 +78,35 @@ public class NumberCollectionTest {
         when(mockList.stream()).thenReturn(Stream.of(1, 2, 3));
         // when(mockList.size()).thenReturn(3); // In JUnit 5, which is strict, this is not allowed
 
-        NumberCollection nc = new NumberCollection(mockList);
+        AddingMachine machine = new AddingMachine(mockList);
 
-        assertEquals(1 + 2 + 3, nc.getTotalUsingStream());
+        assertEquals(1 + 2 + 3, machine.getTotalUsingStream());
 
         verify(mockList).stream();
+    }
+
+    @Test
+    public void getTotalUsingMockedIntegerList() {
+        // Write our own mock implementation of List<Integer>
+        // Only the size() and get(0), get(1), and get(2) methods are stubbed
+        List<Integer> mockList = new MockListOfInteger();
+
+        // Inject the stub into the class we want to test
+        AddingMachine machine = new AddingMachine(mockList);
+
+        // Test the method we care about
+        assertEquals(1 + 2 + 3, machine.getTotalUsingLoop());
     }
 
     @Test  // Not using Mockito at all
     public void getTotalWithStubbedList() {
         List<Integer> stubbedList = Arrays.asList(1, 2, 3);
 
-        NumberCollection nc = new NumberCollection(stubbedList);
+        AddingMachine machine = new AddingMachine(stubbedList);
 
-        assertEquals(1 + 2 + 3, nc.getTotalUsingLoop());
-        assertEquals(1 + 2 + 3, nc.getTotalUsingIterable());
-        assertEquals(1 + 2 + 3, nc.getTotalUsingStream());
+        assertEquals(1 + 2 + 3, machine.getTotalUsingLoop());
+        assertEquals(1 + 2 + 3, machine.getTotalUsingIterable());
+        assertEquals(1 + 2 + 3, machine.getTotalUsingStream());
 
         // No built-in way to verify the method calls on stubbed list
     }
@@ -104,11 +116,11 @@ public class NumberCollectionTest {
         // Spy on a real list
         List<Integer> spyList = spy(Arrays.asList(1, 2, 3));
 
-        NumberCollection nc = new NumberCollection(spyList);
+        AddingMachine machine = new AddingMachine(spyList);
 
-        assertEquals(1 + 2 + 3, nc.getTotalUsingLoop());
-        assertEquals(1 + 2 + 3, nc.getTotalUsingIterable());
-        assertEquals(1 + 2 + 3, nc.getTotalUsingStream());
+        assertEquals(1 + 2 + 3, machine.getTotalUsingLoop());
+        assertEquals(1 + 2 + 3, machine.getTotalUsingIterable());
+        assertEquals(1 + 2 + 3, machine.getTotalUsingStream());
 
         // Can verify a spy
         verify(spyList).size();

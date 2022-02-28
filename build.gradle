@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'eclipse'
+    id "org.owasp.dependencycheck" version "6.5.3"
 }
 
 group 'com.oreilly'
@@ -34,7 +35,7 @@ dependencies {
     testImplementation "org.assertj:assertj-core:$assertjVersion"
 
     // Mockito
-    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    // testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "org.mockito:mockito-junit-jupiter:$mockitoVersion"
-    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion" // includes mockito-core
 }
