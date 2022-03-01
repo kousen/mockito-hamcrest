@@ -49,7 +49,7 @@ public class PublisherTest {
         // when(sub1.receive(anyString())).thenThrow(new RuntimeException());
 
         // Not necessary, since void methods already do nothing
-        //doNothing().when(sub2).receive(anyString());
+        // doNothing().when(sub2).receive(anyString());
 
         pub.send("message 1");
         pub.send("message 2");

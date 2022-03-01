@@ -67,7 +67,7 @@ public class SimpleAssertions {
 
         assertThat(hopper2, is(hopper1));  // equals method comparison
         assertThat(hopper2, is(not(sameInstance(hopper3))));
-        assertThat(hopper1, sameInstance(hopper3));  // references equality
+        assertThat(hopper1, sameInstance(hopper3));  // reference equality
     }
 
     @Test

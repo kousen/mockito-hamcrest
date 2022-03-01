@@ -14,6 +14,32 @@ import static org.mockito.BDDMockito.*;
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class AddingMachineTest {
 
+    @Test  // Not using Mockito at all
+    public void getTotalWithStubbedList() {
+        List<Integer> stubbedList = Arrays.asList(1, 2, 3);
+
+        AddingMachine machine = new AddingMachine(stubbedList);
+
+        assertEquals(1 + 2 + 3, machine.getTotalUsingLoop());
+        assertEquals(1 + 2 + 3, machine.getTotalUsingIterable());
+        assertEquals(1 + 2 + 3, machine.getTotalUsingStream());
+
+        // No built-in way to verify the method calls on stubbed list
+    }
+
+    @Test
+    public void getTotalUsingMockedIntegerList() {
+        // Write our own mock implementation of List<Integer>
+        // Only the size() and get(0), get(1), and get(2) methods are stubbed
+        List<Integer> mockList = new MockListOfInteger();
+
+        // Inject the stub into the class we want to test
+        AddingMachine machine = new AddingMachine(mockList);
+
+        // Test the method we care about
+        assertEquals(1 + 2 + 3, machine.getTotalUsingLoop());
+    }
+
     @Test
     public void getTotalUsingLoop() {
         // Create a stubbed list
@@ -83,32 +109,6 @@ public class AddingMachineTest {
         assertEquals(1 + 2 + 3, machine.getTotalUsingStream());
 
         verify(mockList).stream();
-    }
-
-    @Test
-    public void getTotalUsingMockedIntegerList() {
-        // Write our own mock implementation of List<Integer>
-        // Only the size() and get(0), get(1), and get(2) methods are stubbed
-        List<Integer> mockList = new MockListOfInteger();
-
-        // Inject the stub into the class we want to test
-        AddingMachine machine = new AddingMachine(mockList);
-
-        // Test the method we care about
-        assertEquals(1 + 2 + 3, machine.getTotalUsingLoop());
-    }
-
-    @Test  // Not using Mockito at all
-    public void getTotalWithStubbedList() {
-        List<Integer> stubbedList = Arrays.asList(1, 2, 3);
-
-        AddingMachine machine = new AddingMachine(stubbedList);
-
-        assertEquals(1 + 2 + 3, machine.getTotalUsingLoop());
-        assertEquals(1 + 2 + 3, machine.getTotalUsingIterable());
-        assertEquals(1 + 2 + 3, machine.getTotalUsingStream());
-
-        // No built-in way to verify the method calls on stubbed list
     }
 
     @Test
