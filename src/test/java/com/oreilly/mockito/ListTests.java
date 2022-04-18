@@ -125,7 +125,7 @@ public class ListTests {
         mockedList.add("abcdef");
 
         // custom argument matcher as anonymous inner class
-        verify(mockedList).add(argThat(new ArgumentMatcher<>() {
+        verify(mockedList).add(argThat(new ArgumentMatcher<String>() {
             @Override
             public boolean matches(String someString) {
                 return someString.length() > 5;
@@ -168,7 +168,7 @@ public class ListTests {
         assertFalse(mockedList.add("1234"));
 
         // Use anonymous inner class that could be replaced with lambda
-        verify(mockedList).add(argThat(new ArgumentMatcher<>() {
+        verify(mockedList).add(argThat(new ArgumentMatcher<String>() {
             @Override
             public boolean matches(String argument) {
                 return argument.length() > 5;
