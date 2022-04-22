@@ -1,8 +1,10 @@
 package com.oreilly.astro;
 
 import com.oreilly.astro.json.AstroResponse;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
 
 import java.io.IOException;
 
@@ -33,5 +35,10 @@ public class AstroGateway implements Gateway<AstroResponse> {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    interface OpenNotify {
+        @GET("astros.json")
+        Call<AstroResponse> getAstronautsInSpace();
     }
 }
