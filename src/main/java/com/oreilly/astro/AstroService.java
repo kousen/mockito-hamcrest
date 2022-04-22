@@ -15,12 +15,11 @@ public class AstroService {
 
     public Map<String, Long> getAstroData() {
         AstroResponse response = gateway.getResponse();
-        return extractMap(response);
+        return groupByCraft(response);
     }
 
-    private Map<String, Long> extractMap(AstroResponse data) {
-        return data.getPeople()
-                .stream()
+    private Map<String, Long> groupByCraft(AstroResponse data) {
+        return data.getPeople().stream()
                 .collect(Collectors.groupingBy(
                         Assignment::getCraft, Collectors.counting()));
     }

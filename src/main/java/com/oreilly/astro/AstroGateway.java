@@ -26,25 +26,12 @@ public class AstroGateway implements Gateway<AstroResponse> {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        OpenNotify service = retrofit.create(OpenNotify.class);
+        OpenNotify openNotify = retrofit.create(OpenNotify.class);
+
         try {
-            return service.getAstronautsInSpace().execute().body();
+            return openNotify.getAstronautsInSpace().execute().body();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-//        AtomicReference<AstroResponse> resultRef = new AtomicReference<>();
-//        service.getAstronautsInSpace().enqueue(new Callback<AstroResponse>() {
-//            @Override
-//            public void onResponse(Call<AstroResponse> call, Response<AstroResponse> response) {
-//                resultRef.set(response.body());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<AstroResponse> call, Throwable t) {
-//                throw new RuntimeException(t);
-//            }
-//        });
-//        return resultRef.get();
     }
 }
