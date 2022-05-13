@@ -48,7 +48,7 @@ class AstroServiceTest {
         astroData.forEach((craft, number) -> {
             System.out.println(number + " astronauts aboard " + craft);
             assertAll(
-                    () -> assertThat(number).isGreaterThan(0),
+                    () -> assertThat(number).isGreaterThanOrEqualTo(0),
                     () -> assertThat(craft).isNotBlank()
             );
         });

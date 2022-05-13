@@ -20,12 +20,12 @@ test {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
+        languageVersion.set(JavaLanguageVersion.of(11))
     }
 }
 
 String hamcrestVersion = '2.2'
-String mockitoVersion = '4.4.0'
+String mockitoVersion = '4.5.1'
 String junit5Version = '5.8.2'
 String assertjVersion = '3.22.0'
 
