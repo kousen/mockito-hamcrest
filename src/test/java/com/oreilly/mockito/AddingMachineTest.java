@@ -1,6 +1,5 @@
 package com.oreilly.mockito;
 
-import com.oreilly.AddingMachine;
 import org.junit.Test;
 
 import java.util.Arrays;

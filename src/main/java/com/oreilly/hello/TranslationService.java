@@ -1,4 +1,4 @@
-package com.oreilly;
+package com.oreilly.hello;
 
 public interface TranslationService {
 

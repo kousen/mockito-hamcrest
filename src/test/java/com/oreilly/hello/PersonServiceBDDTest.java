@@ -1,8 +1,8 @@
-package com.oreilly.mockito;
+package com.oreilly.hello;
 
-import com.oreilly.Person;
-import com.oreilly.PersonRepository;
-import com.oreilly.PersonService;
+import com.oreilly.hello.Person;
+import com.oreilly.hello.PersonRepository;
+import com.oreilly.hello.PersonService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

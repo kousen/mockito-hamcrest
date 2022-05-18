@@ -1,4 +1,4 @@
-package com.oreilly;
+package com.oreilly.mockito;
 
 import java.util.List;
 

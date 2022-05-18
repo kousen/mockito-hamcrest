@@ -1,6 +1,5 @@
 package com.oreilly.mockito;
 
-import com.oreilly.AddingMachine;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

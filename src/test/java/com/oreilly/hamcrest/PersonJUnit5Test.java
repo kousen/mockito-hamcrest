@@ -1,6 +1,6 @@
 package com.oreilly.hamcrest;
 
-import com.oreilly.Person;
+import com.oreilly.hello.Person;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

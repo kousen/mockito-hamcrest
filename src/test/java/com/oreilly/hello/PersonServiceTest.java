@@ -1,15 +1,11 @@
-package com.oreilly.mockito;
+package com.oreilly.hello;
 
-import com.oreilly.Person;
-import com.oreilly.PersonRepository;
-import com.oreilly.PersonService;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import com.oreilly.hello.Person;
+import com.oreilly.hello.PersonRepository;
+import com.oreilly.hello.PersonService;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.*;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -20,12 +16,11 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
-public class PersonServiceJUnit5Test {
+public class PersonServiceTest {
 
     @Mock
     private PersonRepository repository;
@@ -43,28 +38,23 @@ public class PersonServiceJUnit5Test {
             new Person(14, "Anita", "Borg", LocalDate.of(1949, Month.JANUARY, 17)),
             new Person(5, "Barbara", "Liskov", LocalDate.of(1939, Month.NOVEMBER, 7)));
 
-    // Can't be done because JUnit 5 extension is _strict_ and
-    // many of these tests don't call repository.findAll()
-//    @BeforeEach
-//    void setUp() {
-//        when(repository.findAll()).thenReturn(people);
-//    }
+    @Before
+    public void init() {
+        // MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
+
+        when(repository.findAll())
+                .thenReturn(people);
+    }
 
     @Test
     public void findMaxId() {
-        when(repository.findAll()).thenReturn(people);
-
         // assertThat(service.getHighestId(), is(14)); // Hamcrest matcher
         assertEquals(14, service.getHighestId());
-
-        verify(repository).findAll();
-        verifyNoMoreInteractions(repository);
     }
 
     @Test
     public void getLastNames() {
-        when(repository.findAll()).thenReturn(people);
-
         assertThat(service.getLastNames(),
                 containsInAnyOrder("Borg", "Goldberg", "Hopper",
                         "Liskov", "Lovelace"));
@@ -95,6 +85,7 @@ public class PersonServiceJUnit5Test {
         // verify the interaction between the service and the mock
         verify(repository, times(5)).save(any(Person.class));
         verify(repository, never()).delete(any(Person.class));
+        verifyNoMoreInteractions(repository);
     }
 
     @Test
@@ -120,43 +111,31 @@ public class PersonServiceJUnit5Test {
         assertThat(ids, contains(actuals));
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void savePersonThrowsException() {
         when(repository.save(any(Person.class)))
                 .thenThrow(RuntimeException.class);
 
-        assertThrows(RuntimeException.class, () -> service.savePeople(people.get(0)));
+        service.savePeople(people.get(0));
     }
 
     @Test
     public void createPerson() {
         Person hopper = people.get(0);
 
-        // The method under test doesn't use the return value from save,
-        // so we don't need to mock it, but if we wanted to, we could add:
-        // when(repository.save(any(Person.class))).thenReturn(hopper);
-
-        // Method under test
-        Person person = service.createPerson(
-                hopper.getId(),
+        Person person = service.createPerson(hopper.getId(),
                 hopper.getFirst(),
                 hopper.getLast(),
-                hopper.getDob()
-        );
+                hopper.getDob());
 
-        // Check that save was called on the mock repository
-        // and capture the argument passed to it
         verify(repository).save(personArg.capture());
-
-        assertAll(
-                () -> assertThat(personArg.getValue(), is(hopper)),
-                () -> assertThat(person, is(hopper))
-        );
+        assertThat(personArg.getValue(), is(hopper));  // verifies the local variable
+        assertThat(person, is(hopper));  // verifies the return
     }
 
     @Test
     public void deleteAll() {
-        when(repository.findAll()).thenReturn(people);
+        // Not necessary, but works
         doNothing().when(repository).delete(any(Person.class));
 
         service.deleteAll();

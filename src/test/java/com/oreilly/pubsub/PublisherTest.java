@@ -1,10 +1,7 @@
-package com.oreilly.mockito;
+package com.oreilly.pubsub;
 
-import com.oreilly.Publisher;
-import com.oreilly.Subscriber;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentMatcher;
 import org.mockito.InOrder;
 
 import static org.mockito.Mockito.*;
@@ -19,8 +16,6 @@ public class PublisherTest {
     public void setUp() {
         pub.addSubscriber(sub1);
         pub.addSubscriber(sub2);
-//        System.out.println(sub1.getClass().getName());
-//        System.out.println(sub2.getClass().getName());
     }
 
     @Test
