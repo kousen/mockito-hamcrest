@@ -3,6 +3,7 @@ package com.oreilly;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -12,8 +13,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class HelloMockitoTest {
@@ -36,8 +36,10 @@ class HelloMockitoTest {
         String greeting = helloMockito.greet(1, "en", "en");
         assertEquals("Hello, Grace, from Mockito!", greeting);
 
-        verify(repository).findById(anyInt());
-        verify(translationService).translate(anyString(), eq("en"), eq("en"));
+        InOrder inOrder = inOrder(repository, translationService);
+
+        inOrder.verify(repository).findById(anyInt());
+        inOrder.verify(translationService).translate(anyString(), eq("en"), eq("en"));
     }
 
     @Test @DisplayName("Greet a person not in the database")
@@ -50,7 +52,9 @@ class HelloMockitoTest {
         String greeting = helloMockito.greet(100, "en", "en");
         assertEquals("Hello, World, from Mockito!", greeting);
 
-        verify(repository).findById(anyInt());
-        verify(translationService).translate(anyString(), eq("en"), eq("en"));
+        InOrder inOrder = inOrder(repository, translationService);
+
+        inOrder.verify(repository).findById(anyInt());
+        inOrder.verify(translationService).translate(anyString(), eq("en"), eq("en"));
     }
 }
