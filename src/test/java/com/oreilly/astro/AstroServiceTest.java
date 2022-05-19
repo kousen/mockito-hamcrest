@@ -37,9 +37,28 @@ class AstroServiceTest {
 
     // Integration test -- no mocks
     @Test
-    void testAstroData_RealGateway() {
+    void testAstroData_RealGatewayRetrofit() {
         // Create an instance of AstroService using the real Gateway
-        service = new AstroService(new AstroGateway());
+        service = new AstroService(new AstroGatewayRetrofit());
+
+        // Call the method under test
+        Map<String, Long> astroData = service.getAstroData();
+
+        // Print the results and check that they are reasonable
+        astroData.forEach((craft, number) -> {
+            System.out.println(number + " astronauts aboard " + craft);
+            assertAll(
+                    () -> assertThat(number).isGreaterThanOrEqualTo(0),
+                    () -> assertThat(craft).isNotBlank()
+            );
+        });
+    }
+
+    // Integration test -- no mocks
+    @Test
+    void testAstroData_RealGatewayHttpClient() {
+        // Create an instance of AstroService using the real Gateway
+        service = new AstroService(new AstroGatewayHttpClient());
 
         // Call the method under test
         Map<String, Long> astroData = service.getAstroData();

@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AstroGatewayTest {
-    private final Gateway<AstroResponse> gateway = new AstroGateway();
+class AstroGatewayHttpClientTest {
+    private final Gateway<AstroResponse> gateway = new AstroGatewayHttpClient();
 
     @Test
     void testDeserializeToRecords() {

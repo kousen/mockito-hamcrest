@@ -9,15 +9,15 @@ import retrofit2.http.GET;
 import java.io.IOException;
 
 @SuppressWarnings("HttpUrlsUsage")
-public class AstroGateway implements Gateway<AstroResponse> {
+public class AstroGatewayRetrofit implements Gateway<AstroResponse> {
     private static final String DEFAULT_URL = "http://api.open-notify.org/";
     private final String url;
 
-    public AstroGateway() {
+    public AstroGatewayRetrofit() {
         this(DEFAULT_URL);
     }
 
-    public AstroGateway(String url) {
+    public AstroGatewayRetrofit(String url) {
         this.url = url;
     }
 
@@ -29,7 +29,6 @@ public class AstroGateway implements Gateway<AstroResponse> {
                 .build();
 
         OpenNotify openNotify = retrofit.create(OpenNotify.class);
-
         try {
             return openNotify.getAstronautsInSpace().execute().body();
         } catch (IOException e) {
