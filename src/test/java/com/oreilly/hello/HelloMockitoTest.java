@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.inOrder;
@@ -57,5 +58,14 @@ class HelloMockitoTest {
 
         inOrder.verify(repository).findById(anyInt());
         inOrder.verify(translationService).translate(anyString(), eq("en"), eq("en"));
+    }
+
+    @Test
+    void testGetterAndSetter() {
+        assertThat(helloMockito.getGreeting()).isNotNull();
+        assertThat(helloMockito.getGreeting()).isEqualTo("Hello, %s, from Mockito!");
+
+        helloMockito.setGreeting("Hi there, %s, from Mockito!");
+        assertThat(helloMockito.getGreeting()).isEqualTo("Hi there, %s, from Mockito!");
     }
 }
