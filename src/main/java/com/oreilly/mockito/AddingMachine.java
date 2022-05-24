@@ -3,6 +3,7 @@ package com.oreilly.mockito;
 import java.util.List;
 
 public class AddingMachine {
+    // Dependency of type List<Integer>
     private final List<Integer> numbers;
 
     public AddingMachine(List<Integer> numbers) {

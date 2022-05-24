@@ -9,7 +9,9 @@ import java.time.Month;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SuppressWarnings("NewClassNamingConvention")
 public class SimpleAssertions {
     @Test
     public void instances() {
@@ -51,11 +53,15 @@ public class SimpleAssertions {
         assertThat(10, lessThan(15));
         assertThat(3.14159, closeTo(Math.PI, 0.0001));
 
+        // JUnit 5:
+        assertEquals(3.14159, Math.PI, 0.0001);
+
         BigDecimal a = new BigDecimal("1.2345");
         BigDecimal b = new BigDecimal("1.234");
         assertThat(a, closeTo(b, new BigDecimal("0.001")));
     }
 
+    @SuppressWarnings("UnnecessaryLocalVariable")
     @Test
     public void checkSameInstance() {
         Person hopper1 = new Person(1, "Grace", "Hopper",
@@ -70,6 +76,7 @@ public class SimpleAssertions {
         assertThat(hopper1, sameInstance(hopper3));  // reference equality
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Test
     public void nullability() {
         Person hopper = null;

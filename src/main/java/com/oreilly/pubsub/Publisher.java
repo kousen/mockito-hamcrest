@@ -8,9 +8,7 @@ public class Publisher {
     private final List<Subscriber> subscribers = new ArrayList<>();
 
     public void addSubscriber(Subscriber sub) {
-        if (!subscribers.contains(sub)) {
-            subscribers.add(sub);
-        }
+        subscribers.add(sub);
     }
 
     // Want to test this method

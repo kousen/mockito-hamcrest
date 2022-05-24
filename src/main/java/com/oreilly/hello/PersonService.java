@@ -51,10 +51,6 @@ public class PersonService {
         repository.findAll().forEach(repository::delete);
     }
 
-    public Optional<Person> findById(int id) {
-        return repository.findById(id);
-    }
-
     public List<Person> findByIds(Integer... ids) {
         return Arrays.stream(ids)
                      .map(repository::findById)

@@ -30,11 +30,11 @@ public class StringTests {
 
     @Test
     public void containing() {
-        String s = "this is a string";
+        String s = "this is a  string";
 
         assertThat(s, containsString("this"));
 
-        String[] split = s.split(" ");
+        String[] split = s.split("\\s+");
         Arrays.stream(split)
               .forEach(word -> assertThat(s, containsString(word)));
 

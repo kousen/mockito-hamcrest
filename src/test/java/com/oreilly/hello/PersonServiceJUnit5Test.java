@@ -112,7 +112,7 @@ public class PersonServiceJUnit5Test {
         when(repository.save(any(Person.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
-        List<Integer> ids = service.savePeople(people.toArray(new Person[0]));
+        List<Integer> ids = service.savePeople(people.toArray(Person[]::new));
 
         Integer[] actuals = people.stream()
                 .map(Person::getId)

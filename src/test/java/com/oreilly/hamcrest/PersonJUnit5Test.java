@@ -34,6 +34,7 @@ public class PersonJUnit5Test {
         assertThat(person, is(not(equalTo(lovelace))));
     }
 
+    @SuppressWarnings("UnnecessaryLocalVariable")
     @Test
     public void checkSameInstance() {
         Person hopper = person;

@@ -3,6 +3,10 @@ package com.oreilly.hello;
 import java.time.LocalDate;
 import java.util.Objects;
 
+// public record Person(Integer id, String first, String last, LocalDate dob) implements Comparable<Person> {
+//     public int compareTo(Person other) { /* ... comparison ... */ }
+// }
+
 public class Person implements Comparable<Person> {
     private Integer id;
     private String first;
