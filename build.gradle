@@ -1,10 +1,10 @@
 plugins {
     id 'java'
-    id 'eclipse'
-    id "org.owasp.dependencycheck" version "6.5.3"
+    alias(libs.plugins.versions)
+    alias(libs.plugins.version.catalog.update)
 }
 
-group 'com.oreilly'
+group 'com.kousenit'
 version '1.0'
 
 repositories {
@@ -15,44 +15,31 @@ test {
     useJUnitPlatform()
 }
 
-//sourceCompatibility = JavaVersion.VERSION_1_8
-//targetCompatibility = JavaVersion.VERSION_1_8
-
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(11))
     }
 }
 
-String hamcrestVersion = '2.2'
-String mockitoVersion = '4.5.1'
-String junit5Version = '5.8.2'
-String assertjVersion = '3.22.0'
-
 dependencies {
-
     // JUnit, including vintage engine
-    testImplementation(platform("org.junit:junit-bom:$junit5Version"))
-    testImplementation('org.junit.jupiter:junit-jupiter')
-    testImplementation 'junit:junit:4.13.2'
-    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:$junit5Version"
+    testImplementation libs.bundles.junit
 
     // Hamcrest
-    testImplementation "org.hamcrest:hamcrest-library:$hamcrestVersion"
-    testImplementation "org.hamcrest:hamcrest:$hamcrestVersion"
+    testImplementation libs.hamcrest
 
     // AssertJ
-    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation libs.assertj
 
     // Mockito
-    // testImplementation "org.mockito:mockito-core:$mockitoVersion"
-    testImplementation "org.mockito:mockito-junit-jupiter:$mockitoVersion"
-    testImplementation "org.mockito:mockito-inline:$mockitoVersion" // includes mockito-core
+    testImplementation libs.bundles.mockito
 
     // Retrofit (for astro demo)
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation libs.bundles.retrofit
 
     // Gson
-    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation libs.gson
+
+    // JQwik
+    testImplementation libs.jqwik
 }

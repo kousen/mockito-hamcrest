@@ -122,8 +122,8 @@ public class AddingMachineTest {
         assertEquals(1 + 2 + 3, machine.getTotalUsingStream());
 
         // Can verify a spy
-        verify(spyList, times(5)).size();
-        verify(spyList, times(6)).get(anyInt());
+        verify(spyList).size();
+        verify(spyList, times(3)).get(anyInt());
         verify(spyList).iterator();
         verify(spyList).stream();
     }
