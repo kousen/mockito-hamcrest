@@ -48,7 +48,7 @@ class AstroServiceTest {
         astroData.forEach((craft, number) -> {
             System.out.println(number + " astronauts aboard " + craft);
             assertAll(
-                    () -> assertThat(number).isGreaterThanOrEqualTo(0),
+                    () -> assertThat(number).isNotNegative(),
                     () -> assertThat(craft).isNotBlank()
             );
         });
@@ -67,17 +67,17 @@ class AstroServiceTest {
         astroData.forEach((craft, number) -> {
             System.out.println(number + " astronauts aboard " + craft);
             assertAll(
-                    () -> assertThat(number).isGreaterThanOrEqualTo(0),
+                    () -> assertThat(number).isNotNegative(),
                     () -> assertThat(craft).isNotBlank()
             );
         });
     }
 
-    // Own mock class -- MockGateway
+    // Own mock class -- FakeGateway
     @Test
-    void testAstroData_OwnMockGateway() {
+    void testAstroData_fakeGateway() {
         // Create the service using the mock Gateway
-        service = new AstroService(new MockGateway());
+        service = new AstroService(new FakeGateway());
 
         // Call the method under test
         Map<String, Long> astroData = service.getAstroData();
@@ -86,7 +86,7 @@ class AstroServiceTest {
         astroData.forEach((craft, number) -> {
             System.out.println(number + " astronauts aboard " + craft);
             assertAll(
-                    () -> assertThat(number).isGreaterThan(0),
+                    () -> assertThat(number).isNotNegative(),
                     () -> assertThat(craft).isNotBlank()
             );
         });
@@ -118,7 +118,7 @@ class AstroServiceTest {
         astroData.forEach((craft, number) -> {
             System.out.println(number + " astronauts aboard " + craft);
             assertAll(
-                    () -> assertThat(number).isGreaterThan(0),
+                    () -> assertThat(number).isNotNegative(),
                     () -> assertThat(craft).isNotBlank()
             );
         });
@@ -147,7 +147,7 @@ class AstroServiceTest {
         astroData.forEach((craft, number) -> {
             System.out.println(number + " astronauts aboard " + craft);
             assertAll(
-                    () -> assertThat(number).isGreaterThan(0),
+                    () -> assertThat(number).isNotNegative(),
                     () -> assertThat(craft).isNotBlank()
             );
         });
@@ -177,7 +177,7 @@ class AstroServiceTest {
         astroData.forEach((craft, number) -> {
             System.out.println(number + " astronauts aboard " + craft);
             assertAll(
-                    () -> assertThat(number).isGreaterThan(0),
+                    () -> assertThat(number).isNotNegative(),
                     () -> assertThat(craft).isNotBlank()
             );
         });

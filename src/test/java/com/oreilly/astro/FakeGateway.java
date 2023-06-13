@@ -5,7 +5,7 @@ import com.oreilly.astro.json.AstroResponse;
 
 import java.util.Arrays;
 
-public class MockGateway implements Gateway<AstroResponse> {
+public class FakeGateway implements Gateway<AstroResponse> {
     @Override
     public AstroResponse getResponse() {
         return new AstroResponse(7, "Success",
