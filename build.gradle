@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'jacoco'
     alias(libs.plugins.versions)
     alias(libs.plugins.version.catalog.update)
 }
@@ -43,3 +44,5 @@ dependencies {
     // JQwik
     testImplementation libs.jqwik
 }
+
+jacocoTestReport.dependsOn(test)

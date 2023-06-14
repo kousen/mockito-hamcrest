@@ -4,7 +4,7 @@ gson = "2.10.1"
 hamcrest = "2.2"
 jqwik = "1.7.3"
 junit = "5.10.0-M1"
-mockito = "5.2.0"
+mockito = "5.3.1"
 retrofit = "2.9.0"
 retrofit-gson = "2.9.0"
 
@@ -15,8 +15,8 @@ hamcrest = { module = "org.hamcrest:hamcrest", version.ref = "hamcrest" }
 jqwik = { module = "net.jqwik:jqwik", version.ref = "jqwik" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 junit-vintage = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junit" }
-mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito" }
-mockito-junit = "org.mockito:mockito-junit-jupiter:5.3.1"
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
+mockito-junit = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit-gson" }
 
@@ -26,7 +26,7 @@ junit = [
     "junit-vintage",
 ]
 mockito = [
-    "mockito-inline",
+    "mockito-core",
     "mockito-junit",
 ]
 retrofit = [
