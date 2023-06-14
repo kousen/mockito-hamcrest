@@ -30,18 +30,22 @@ class HelloMockitoTest {
 
     @Test @DisplayName("Greet Admiral Hopper")
     void greetForPersonThatExists() {
+        // Set the expectations
         when(repository.findById(anyInt()))
                 .thenReturn(Optional.of(new Person(1, "Grace", "Hopper", LocalDate.now())));
         when(translationService.translate("Hello, Grace, from Mockito!", "en", "en"))
                 .thenReturn("Hello, Grace, from Mockito!");
 
+        // Call the method under test
         String greeting = helloMockito.greet(1, "en", "en");
         assertEquals("Hello, Grace, from Mockito!", greeting);
+        assertThat(greeting).isEqualTo("Hello, Grace, from Mockito!");
 
         InOrder inOrder = inOrder(repository, translationService);
 
         inOrder.verify(repository).findById(anyInt());
         inOrder.verify(translationService).translate(anyString(), eq("en"), eq("en"));
+        // inOrder.verify(translationService).translate(anyString(), "en", "en");
     }
 
     @Test @DisplayName("Greet a person not in the database")

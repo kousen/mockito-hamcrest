@@ -42,13 +42,17 @@ public class AddingMachineTest {
     @Test
     public void getTotalUsingLoop() {
         // Create a stubbed list
-        List<Integer> mockList = mock(List.class);
+        List<Integer> mockList = mock();  // Mockito 4.9.0+ only
 
         // Set the expectations on the stub
         when(mockList.size()).thenReturn(3);
         when(mockList.get(0)).thenReturn(1);
         when(mockList.get(1)).thenReturn(2);
         when(mockList.get(2)).thenReturn(3);
+
+        // Same as:
+//        when(mockList.get(anyInt()))
+//                .thenReturn(1, 2, 3);
 
         // Inject the stub into the class we want to test
         AddingMachine machine = new AddingMachine(mockList);
@@ -64,7 +68,7 @@ public class AddingMachineTest {
     @Test
     public void getTotalUsingLoop_BDD() {
         // Create a stubbed list
-        List<Integer> mockList = mock(List.class);
+        List<Integer> mockList = mock();  // Mockito 4.9.0+ only
 
         // Set the expectations on the stub
         given(mockList.size()).willReturn(3);

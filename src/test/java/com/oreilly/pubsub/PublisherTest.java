@@ -26,10 +26,12 @@ public class PublisherTest {
         verify(sub1).receive("Hello");
     }
 
-    @Test
+    @Test  // Overspecified test -- forces a particular implementation
     public void testSendInOrder() {
         pub.send("Hello");
 
+        // Questionable! Why are we mandating order?
+        // What if the loop is run in parallel?
         InOrder inorder = inOrder(sub1, sub2);
         inorder.verify(sub1).receive("Hello");
         inorder.verify(sub2).receive("Hello");

@@ -20,6 +20,15 @@ public class Publisher {
                 // evil, but what can you do?
             }
         }
+
+//        subscribers.parallelStream()
+//                .forEach(sub -> {
+//                    try {
+//                        sub.receive(message);
+//                    } catch (Exception ignored) {
+//                        // evil, but what can you do?
+//                    }
+//                });
     }
 }
 
